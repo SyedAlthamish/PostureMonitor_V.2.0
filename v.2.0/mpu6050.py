@@ -187,4 +187,9 @@ def get_mpu6050_comprehensive_data(i2c, address,sensor):
     }
 
 
-
+'''
+To do:
+1. set up a proper automated way to assess the data acquired@
+2. implement a low pass filter
+3. compare the difference between the two
+'''

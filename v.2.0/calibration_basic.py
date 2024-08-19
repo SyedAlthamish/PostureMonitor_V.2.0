@@ -39,14 +39,28 @@ def calcianglealone(data):
     angleAccZ = math.atan2(math.sqrt(x * x + y * y), z) * 180 / math.pi
     return angleAccX,angleAccY,angleAccZ
 
+#func defn for printing all data within datalist as csv values where datalist holds dict's of each of the 3 sensors
+#prints as xa,ya,za,xg,yg,zg,xgb,ybg,zbg
+def printall(datalist):
+    datatypes=['accel','gyrooooooooooooooooo','gyro_biased']
+    axes=['x','y','z']
+    for i in range(0,len(datalist)):
+        for j in datatypes:
+            for k in axes:
+                print(datalist[i][j][k],end=",")
+        print(i+1)
+        utime.sleep(0.01)            
+                
 calibrate_gyro(i2c,0x68,1)
 calibrate_gyro(i2c,0x69,2)
 calibrate_gyro(i2c1,0x68,3)
+
 
 while True:
     data_68 = get_mpu6050_comprehensive_data(i2c, 0x68,1)				#a dict with all mpu related data from 1sti2c0 sensor
     data_69 = get_mpu6050_comprehensive_data(i2c, 0x69,2)  			#a dict with all mpu related data from 2ndi2c0 sensor
     data_681 = get_mpu6050_comprehensive_data(i2c1, 0x68,3)			#a dict with all mpu related data from 1sti2c1 sensor
+    datalist=[data_68,data_69,data_681]
     
     curr_time = utime.ticks_ms()						#to find the current time
     dt = (curr_time - prev_time) / 1000					#to find the difference in time in m.seconds
@@ -59,13 +73,16 @@ while True:
     
     #printing the respective variables in console
     #print(data_68)								#prints the acc and gyro data independently
-    print(data_68,1)
-    print(data_69,2)
-    print(data_681,3)
+    #print(data_68,1)
+    #print(data_69,2)
+    #print(data_681,3)
     
+    printall(datalist)							#func call to print all the data in a csv format, #prints as xa,ya,za,xg,yg,zg,xgb,ybg,zbg
     #print(tilt_x_69, tilt_y_69, tilt_z_69)
     #print(tilt_x_681, tilt_y_681, tilt_z_681)
     
+    #filtered_gyrox=lpf_gyro_x.apply(data_68['gyro_biased']['x'])
+    #print(data_68['gyro_biased']['x'],filtered_gyrox)
     utime.sleep(0.01)
 
 
