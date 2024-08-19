@@ -14,7 +14,7 @@ Functional Description:-
 from machine import Pin, I2C																				#for Pin Manipulation, i2c communication
 import utime																								#for delay between each loop
 import math																									#for tilt calculation from each sensor
-from mpu6050 import init_mpu6050, get_mpu6050_data, calibrate_gyro, calci_tilt_accangles,get_mpu6050_comprehensive_data		#for individual user-defined functions
+from mpu6050 import init_mpu6050, get_mpu6050_data, calibrate_gyro, calci_tilt_accangles,get_mpu6050_comprehensive_data,calibrate_checkgyro		#for individual user-defined functions
 
 
 #The setting of MPU6050 sensor's addresses
@@ -54,6 +54,12 @@ def printall(datalist):
 calibrate_gyro(i2c,0x68,1)
 calibrate_gyro(i2c,0x69,2)
 calibrate_gyro(i2c1,0x68,3)
+
+calibrate_checkgyro(i2c,0x68,1)
+calibrate_checkgyro(i2c,0x69,2)
+calibrate_checkgyro(i2c1,0x68,3)
+
+
 
 
 while True:

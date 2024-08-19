@@ -35,6 +35,16 @@ def read_raw_data(i2c, addr, address=0x68):
         value = value - 65536
     return value
 
+def variance(data):
+    n = len(data)
+    if n == 0:
+        return 0
+    mean = sum(data) / n
+    squared_diffs = [(x - mean) ** 2 for x in data]
+    return sum(squared_diffs) / (n - 1)  # Sample variance (ddof=1)
+
+
+
 def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
     print("Calibrating gyroscope...")
     sumg_x = 0
@@ -186,10 +196,22 @@ def get_mpu6050_comprehensive_data(i2c, address,sensor):
         }   
     }
 
+def calibrate_checkgyro(i2c,address,sensor_no,num_samples=200):#1000
+    gyroxlist=[]
+    gyroylist=[]
+    gyrozlist=[]
+    for i in range(num_samples):
+        data=get_mpu6050_comprehensive_data(i2c,address,sensor_no)
+        gyro_x = data['gyro_biased']['x']
+        gyro_y = data['gyro_biased']['y']
+        gyro_z = data['gyro_biased']['z']
+        gyroxlist.append(gyro_x)
+        gyroylist.append(gyro_y)
+        gyrozlist.append(gyro_z)
+    
+    if (variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15):
+        print("variance checks out", variance(gyroxlist),variance(gyroxlist),variance(gyroxlist))
+    else:
+        print("variance doesn't check out")
+        print(variance(gyroxlist),variance(gyroxlist),variance(gyroxlist) )
 
-'''
-To do:
-1. set up a proper automated way to assess the data acquired@
-2. implement a low pass filter
-3. compare the difference between the two
-'''
