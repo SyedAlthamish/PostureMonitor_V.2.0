@@ -59,7 +59,9 @@ while True:
     
     #printing the respective variables in console
     #print(data_68)								#prints the acc and gyro data independently
-    print(data_68)
+    print(data_68,1)
+    print(data_69,2)
+    print(data_681,3)
     
     #print(tilt_x_69, tilt_y_69, tilt_z_69)
     #print(tilt_x_681, tilt_y_681, tilt_z_681)

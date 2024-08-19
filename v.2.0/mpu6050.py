@@ -13,9 +13,12 @@ GYRO_XOUT_H = 0x43
 angleX=0
 angleY=0
 angleZ=[0,0]
-avgg_z=[0,0]
-
- 
+avgg_z=[0,0,0]
+avgg_x=[0,0,0]
+avgg_y=[0,0,0]
+avga_x=[0,0,0]
+avga_y=[0,0,0]
+avga_z=[0,0,0]
 def init_mpu6050(i2c, address=0x68):
     i2c.writeto_mem(address, PWR_MGMT_1, b'\x01')#0x00
     utime.sleep_ms(100)
@@ -69,7 +72,7 @@ def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
     avga_y[sensor] = suma_y / num_samples
     avga_z[sensor] = suma_z / num_samples
 
-    print("Gyroscope calibration complete.")
+    print("Gyroscope calibration complete.",avgg_x[sensor],avgg_y[sensor],avgg_z[sensor])
     #print("Average values: X: {:.2f}, Y: {:.2f}, Z: {:.2f}".format(avgg_x, avgg_y, avg_z))
     #return avg_x, avg_y, avg_z
 
@@ -171,15 +174,17 @@ def get_mpu6050_comprehensive_data(i2c, address,sensor):
             'y': accel_y,
             'z': accel_z,
         },
-        'gyro': {
+        'gyrooooooooooooooooo': {
             'x': gyro_x,
             'y': gyro_y,
             'z': gyro_z,
         },
         'gyro_biased':{
-            'x': gyro_x-avgg_x[sensor],
-            'y': gyro_y-avgg_y[sensor],
-            'z': gyro_z-avgg_z[sensor],
+            'x': gyro_x-avgg_x[sensor-1],
+            'y': gyro_y-avgg_y[sensor-1],
+            'z': gyro_z-avgg_z[sensor-1],
         }   
     }
+
+
 
