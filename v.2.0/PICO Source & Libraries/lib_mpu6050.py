@@ -13,9 +13,12 @@ GYRO_XOUT_H = 0x43
 angleX=0
 angleY=0
 angleZ=[0,0]
-avgg_z=[0,0]
-
- 
+avgg_z=[0,0,0]
+avgg_x=[0,0,0]
+avgg_y=[0,0,0]
+avga_x=[0,0,0]
+avga_y=[0,0,0]
+avga_z=[0,0,0]
 def init_mpu6050(i2c, address=0x68):
     i2c.writeto_mem(address, PWR_MGMT_1, b'\x01')#0x00
     utime.sleep_ms(100)
@@ -31,6 +34,16 @@ def read_raw_data(i2c, addr, address=0x68):
     if value > 32768:
         value = value - 65536
     return value
+
+def variance(data):
+    n = len(data)
+    if n == 0:
+        return 0
+    mean = sum(data) / n
+    squared_diffs = [(x - mean) ** 2 for x in data]
+    return sum(squared_diffs) / (n - 1)  # Sample variance (ddof=1)
+
+
 
 def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
     print("Calibrating gyroscope...")
@@ -69,7 +82,7 @@ def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
     avga_y[sensor] = suma_y / num_samples
     avga_z[sensor] = suma_z / num_samples
 
-    print("Gyroscope calibration complete.")
+    print("Gyroscope calibration complete.",avgg_x[sensor],avgg_y[sensor],avgg_z[sensor])
     #print("Average values: X: {:.2f}, Y: {:.2f}, Z: {:.2f}".format(avgg_x, avgg_y, avg_z))
     #return avg_x, avg_y, avg_z
 
@@ -177,9 +190,29 @@ def get_mpu6050_comprehensive_data(i2c, address,sensor):
             'z': gyro_z,
         },
         'gyro_biased':{
-            'x': gyro_x-avgg_x[sensor],
-            'y': gyro_y-avgg_y[sensor],
-            'z': gyro_z-avgg_z[sensor],
+            'x': gyro_x-avgg_x[sensor-1],
+            'y': gyro_y-avgg_y[sensor-1],
+            'z': gyro_z-avgg_z[sensor-1],
         }   
     }
+
+def calibrate_checkgyro(i2c,address,sensor_no,num_samples=200):#1000
+    gyroxlist=[]
+    gyroylist=[]
+    gyrozlist=[]
+    for i in range(num_samples):
+        data=get_mpu6050_comprehensive_data(i2c,address,sensor_no)
+        gyro_x = data['gyro_biased']['x']
+        gyro_y = data['gyro_biased']['y']
+        gyro_z = data['gyro_biased']['z']
+        gyroxlist.append(gyro_x)
+        gyroylist.append(gyro_y)
+        gyrozlist.append(gyro_z)
+    
+    if (variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15):
+        print("variance checks out", variance(gyroxlist),variance(gyroxlist),variance(gyroxlist))
+    else:
+        print("variance doesn't check out")
+        print(variance(gyroxlist),variance(gyroxlist),variance(gyroxlist) )
+
 
