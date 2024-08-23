@@ -184,7 +184,7 @@ def get_mpu6050_comprehensive_data(i2c, address,sensor):
             'y': accel_y,
             'z': accel_z,
         },
-        'gyrooooooooooooooooo': {
+        'gyro': {
             'x': gyro_x,
             'y': gyro_y,
             'z': gyro_z,
@@ -214,4 +214,5 @@ def calibrate_checkgyro(i2c,address,sensor_no,num_samples=200):#1000
     else:
         print("variance doesn't check out")
         print(variance(gyroxlist),variance(gyroxlist),variance(gyroxlist) )
+
 

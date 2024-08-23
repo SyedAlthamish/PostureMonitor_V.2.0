@@ -1,13 +1,6 @@
 '''
 File Name: calibration_basic.py
-Purpose:This file runs the calibration and checks its performance
-The following comment is invalid
-Functional Description:-
-    1. The i2c pins(both i2c0 and i2c1 channels) are first initialized.
-    2. The mpu6050's addressess are accordingly set.
-    3. Each MPU is sequentially initialized.
-    4. Data is Acquired from each sensor infinitely.
-    5. Tilt is acquired from each data point and then printed in the console.
+Purpose:This ROUGH file runs the calibration and checks its performance
 '''
 
 #importion of libraries

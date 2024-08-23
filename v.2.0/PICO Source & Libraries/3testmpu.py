@@ -13,7 +13,7 @@ Functional Description:-
 from machine import Pin, I2C																				#for Pin Manipulation, i2c communication
 import utime																								#for delay between each loop
 import math																									#for tilt calculation from each sensor
-from mpu6050 import init_mpu6050, get_mpu6050_data, calibrate_gyroonlyZ, calci_tilt_accangles		#for individual user-defined functions
+from lib_mpu6050 import init_mpu6050, get_mpu6050_data, calibrate_gyroonlyZ, calci_tilt_accangles		#for individual user-defined functions
 
 
 #The setting of MPU6050 sensor's addresses
@@ -28,15 +28,6 @@ init_mpu6050(i2c, 0x68)									#initializing first sensor in i2c0
 init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
 init_mpu6050(i2c1,0x68)									#initializing first sensor in i2c1		
 prev_time = utime.ticks_ms()							#initializing time parameteric for integrating gyro data
-
-#calibration of the sensor
-
-def calcianglealone(data):
-    x, y, z = data['accel']['x'], data['accel']['y'], data['accel']['z']
-    angleAccX = math.atan2(y, math.sqrt(x * x + z * z)) * 180 / math.pi
-    angleAccY = - math.atan2(x, math.sqrt(y * y + z * z)) * 180 / math.pi
-    angleAccZ = math.atan2(math.sqrt(x * x + y * y), z) * 180 / math.pi
-    return angleAccX,angleAccY,angleAccZ
 
 while True:
     data_68 = get_mpu6050_data(i2c, 0x68,0)				#a dict with all mpu related data from 1sti2c0 sensor
@@ -53,12 +44,7 @@ while True:
     tilt_x_69, tilt_y_69, tilt_z_69 = calci_tilt_accangles(data_69, dt,1, 0.98)  
     
     #printing the respective variables in console
-    #print(data_68)								#prints the acc and gyro data independently
-    print(calcianglealone(data_68))
-    
-    #print(tilt_x_69, tilt_y_69, tilt_z_69)
-    #print(tilt_x_681, tilt_y_681, tilt_z_681)
+    print(tilt_x_68, tilt_y_68, tilt_z_68,tilt_x_69, tilt_y_69, tilt_z_69, tilt_x_681, tilt_y_681, tilt_z_681)
     
     utime.sleep(0.01)
-
 
