@@ -50,7 +50,6 @@ while True:
     data_69 = get_mpu6050_comprehensive_data(i2c, 0x69,2)  			#a dict with all mpu related data from 2ndi2c0 sensor
     data_681 = get_mpu6050_comprehensive_data(i2c1, 0x68,3)			#a dict with all mpu related data from 1sti2c1 sensor
     datalist=[data_68,data_69,data_681]								#all 3 sensor's data are grouped together into a list correspondent to their sensor no.
-    
-    printall(datalist)							#func call to print all the data in a csv format, #prints as xa,ya,za,xg,yg,zg,xgb,ybg,zbg ; func located in lib_misc.py
+    printall(get_timestamp(),datalist)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xg,yg,zg,xgb,ybg,zbg ; func located in lib_misc.py
     utime.sleep(0.01)							#to sample data at 0.01 sec per sample or 100Hz
 
