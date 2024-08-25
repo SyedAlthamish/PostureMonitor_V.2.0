@@ -1,0 +1,1 @@
+- The chest sensor is slightly off-place as can be noted from the picture

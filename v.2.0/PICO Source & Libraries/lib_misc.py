@@ -24,9 +24,10 @@ def printall(time_stamp,datalist):
     datatypes=['accel','gyro','gyro_biased']			#the different indexes within datalist
     axes=['x','y','z']
     for i in range(0,len(datalist)):
+        print(time_stamp,end=" ")
         for j in datatypes:
             for k in axes:
-                print(time_stamp+str(datalist[i][j][k]),end=" ")
+                print(str(datalist[i][j][k]),end=" ")
         print(i+1)
         utime.sleep(0.01)            
 

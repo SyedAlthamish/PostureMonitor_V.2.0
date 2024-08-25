@@ -55,4 +55,3 @@ while True:
     utime.sleep(0.01)							#to sample data at 0.01 sec per sample or 100Hz
 
 
-
