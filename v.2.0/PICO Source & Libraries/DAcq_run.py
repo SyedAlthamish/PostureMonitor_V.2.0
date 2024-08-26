@@ -64,6 +64,6 @@ while True:
     datalist=[data_68,data_69,data_681]								#all 3 sensor's data are grouped together into a list correspondent to their sensor no.
     
     printall(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xg,yg,zg,xgb,ybg,zbg ; func located in lib_misc.py
-    utime.sleep(0.005)							#to sample data at 0.01 sec per sample or 100Hz
+    #estimated sampling time is 0.22 sec or ~50Hz upon observing dt
 
 
