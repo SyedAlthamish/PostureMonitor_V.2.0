@@ -211,13 +211,14 @@ def calibrate_checkgyro(i2c,address,sensor_no,num_samples=200):#1000
         gyroylist.append(gyro_y)
         gyrozlist.append(gyro_z)
     
-    if (variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15):
-        print("variance checks out", variance(gyroxlist),variance(gyroxlist),variance(gyroxlist))
+    sensor_index=sensor_no-1
+    sensor_var_threshold=[[1.2,1.2,1.2],[1.2,1.2,1.2],[1.2,1.2,1.2]]
+    
+    if (variance(gyroxlist) < sensor_var_threshold[sensor_index][0] and variance(gyroylist) < sensor_var_threshold[sensor_index][1] and variance(gyrozlist) < sensor_var_threshold[sensor_index][2]):
+        print("variance checks out", variance(gyroxlist),variance(gyroylist),variance(gyrozlist))
     else:
         print("variance doesn't check out")
-        print(variance(gyroxlist),variance(gyroxlist),variance(gyroxlist) )
-
-
+        print(variance(gyroxlist),variance(gyroylist),variance(gyrozlist) )
 
 
 
@@ -282,3 +283,5 @@ The formula continuously adjusts the gyroscope's estimate by comparing it to the
 Summary:
 This line is indeed more sophisticated than a typical complementary filter. It incorporates a correction mechanism to adjust the gyroscope's angle estimate using the accelerometer's direct angle, which is then wrapped to stay within a valid range. This approach aims to combine the strengths of both sensors: the stability of the accelerometer and the responsiveness of the gyroscope, while actively correcting for drift and maintaining accuracy over time.
 '''
+
+
