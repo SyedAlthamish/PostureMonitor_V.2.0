@@ -20,7 +20,7 @@ Function: to print data in the following format of output string and input argum
             MM.SS,ax,ay,az,gx,gy,gz,gbx,gby,gbz,2
             MM.SS,ax,ay,az,gx,gy,gz,gbx,gby,gbz,3				; where gbx is gyro_biased data of x axis, and 1/2/3 is the sensor_no who's data is being printed
 '''
-def printall(time_stamp,datalist):
+def printall(time_stamp,datalist,tiltlist,dt):
     datatypes=['accel','gyro','gyro_biased']			#the different indexes within datalist
     axes=['x','y','z']
     for i in range(0,len(datalist)):
@@ -28,8 +28,10 @@ def printall(time_stamp,datalist):
         for j in datatypes:
             for k in axes:
                 print(str(datalist[i][j][k]),end=" ")
-        print(i+1)
-        utime.sleep(0.01)            
+        for index in range((0+i*5),((4+i*5)+1)):
+            print(tiltlist[index],end=" ")
+        print(dt,end=" ")            
+        print(i+1)            
 
 
 
@@ -52,5 +54,6 @@ Output: MM.SS in string format
 def get_timestamp():
     current_time = utime.localtime()								# Get the current time
     return "{:02}.{:02} ".format(current_time[4], current_time[5])	# Format the time as [MM.SS]
+
 
 
