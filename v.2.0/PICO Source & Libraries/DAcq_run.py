@@ -63,7 +63,7 @@ while True:
     tiltlist=[tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68,tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69,tilt_x_681, tilt_y_681, tilt_z_681, tilt_xacc_681, tilt_yacc_681]
     datalist=[data_68,data_69,data_681]								#all 3 sensor's data are grouped together into a list correspondent to their sensor no.
     
-    printall(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xg,yg,zg,xgb,ybg,zbg ; func located in lib_misc.py
+    printall(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no ; func located in lib_misc.py
     #estimated sampling time is 0.22 sec or ~50Hz upon observing dt
 
 

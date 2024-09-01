@@ -21,7 +21,7 @@ Function: to print data in the following format of output string and input argum
             MM.SS,ax,ay,az,gx,gy,gz,gbx,gby,gbz,3				; where gbx is gyro_biased data of x axis, and 1/2/3 is the sensor_no who's data is being printed
 '''
 def printall(time_stamp,datalist,tiltlist,dt):
-    datatypes=['accel','gyro','gyro_biased']			#the different indexes within datalist
+    datatypes=['accel','gyro_biased']			#the different indexes within datalist
     axes=['x','y','z']
     for i in range(0,len(datalist)):
         print(time_stamp,end=" ")
