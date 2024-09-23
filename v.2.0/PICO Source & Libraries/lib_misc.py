@@ -12,13 +12,34 @@
 import utime
 import sys
 
+'''
+Function: to print data in the following format of output string and input argument for real time integration
+    Input: datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}} ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
+    Output: prints as ['accx1','accy1','accz1','accx2','accy2','accz2',accx3','accy3','accz3','gyrox1','gyroy1','gyroz1','gyrox2','gyroy2','gyroz2','gyrox3','gyroy3','gyroz3', 'biased_gyrox1','biased_gyroy1','biased_gyroz1','biased_gyrox2','biased_gyroy2','biased_gyroz2','biased_gyrox3','biased_gyroy3',
+                        'biased_gyroz3']
+'''
+def printall_Rtime(time_stamp,datalist,tiltlist,dt):
+    
+    
+    datatypes=['accel','gyro','gyro_biased']			#the different indexes within datalist
+    axes=['x','y','z']
+    printlist=[]
+    for j in datatypes:
+        for i in range(0,len(datalist)):
+            for k in axes:
+                    datapoint=datalist[i][j][k]
+                    #print(str(datapoint),end=" ")
+                    printlist.append(datapoint)
+                        
+    for i in printlist:
+        print(str(i)+"\t\t\t",end="")
+    print("\n",end="n")            
+
 
 '''
 Function: to print data in the following format of output string and input argument
     Input: get_timestamp() output[string: MM.SS] , datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}} ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
-    Output: MM.SS,ax,ay,az,gx,gy,gz,gbx,gby,gbz,1
-            MM.SS,ax,ay,az,gx,gy,gz,gbx,gby,gbz,2
-            MM.SS,ax,ay,az,gx,gy,gz,gbx,gby,gbz,3				; where gbx is gyro_biased data of x axis, and 1/2/3 is the sensor_no who's data is being printed
+    Output: prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no for 3 sensors
 '''
 def printall(time_stamp,datalist,tiltlist,dt):
     datatypes=['accel','gyro_biased']			#the different indexes within datalist
@@ -54,6 +75,7 @@ Output: MM.SS in string format
 def get_timestamp():
     current_time = utime.localtime()								# Get the current time
     return "{:02}.{:02} ".format(current_time[4], current_time[5])	# Format the time as [MM.SS]
+
 
 
 

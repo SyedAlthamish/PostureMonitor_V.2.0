@@ -1,0 +1,40 @@
+.40
+neutral
+.53
+change
+.58
+slouch mild
+1.15
+change
+.18
+slouch mod
+.36
+change
+.38
+slouch ext
+.55
+change
+2.01
+hunch mod
+.22
+change
+.24
+hunch ext
+.41
+change
+.44
+hunch right
+3.01
+change
+3.03
+hunch left
+.17
+change
+.20
+lean right
+.34
+change
+.39
+lean left
+.53
+end

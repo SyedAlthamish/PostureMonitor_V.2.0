@@ -1,0 +1,20 @@
+All work done:
+1. Included 1 new sensor.
+2. Firmware Integration into existing posture monitor
+3. Included complementary filter and acc filter
+4. Included the firmware for training data
+5. Ran 12 datasets
+6. Included firmware for real-time data integration
+
+Sarv:
+- Feature extraction and reduction techniques
+- Bluetooth low energy soldering
+- 3rd sensor hardware integration
+- Dataset Collection
+- Literature review on processing techniques
+- Error correction of dataset collection process
+
+Kef:
+- feature extraction codes
+- dataset collection
+- Posture corrector integration of the sensor
