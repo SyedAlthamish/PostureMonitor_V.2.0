@@ -1,0 +1,40 @@
+
+neutral
+
+change
+
+slouch mild
+
+change
+
+slouch mod
+
+change
+
+slouch ext
+
+change
+
+hunch mod
+
+change
+
+hunch ext
+
+change
+
+hunch right
+
+change
+
+hunch left
+
+change
+
+lean right
+
+change
+
+lean left
+
+end

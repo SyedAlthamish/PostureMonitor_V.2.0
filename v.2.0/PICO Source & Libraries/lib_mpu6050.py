@@ -10,9 +10,9 @@ ACCEL_CONFIG = 0x1C
 TEMP_OUT_H = 0x41
 ACCEL_XOUT_H = 0x3B
 GYRO_XOUT_H = 0x43
-angleX=0
-angleY=0
-angleZ=[0,0]
+angleX=[0,0,0]
+angleY=[0,0,0]
+angleZ=[0,0,0]
 avgg_z=[0,0,0]
 avgg_x=[0,0,0]
 avgg_y=[0,0,0]
@@ -102,7 +102,7 @@ def calibrate_gyroonlyZ(i2c, address,sensor, num_samples=1000):
     print("Gyroscope Z-axis calibration complete.")
 
 
-def calci_tilt_angles(data,dtime,alpha=0.98):
+def calci_tilt_angles(data,sensor_no,dtime,alpha=0.98):
     x, y, z = data['accel']['x'], data['accel']['y'], data['accel']['z']
  
     angleAccX = math.atan2(y, math.sqrt(x * x + z * z)) * 180 / math.pi
@@ -111,11 +111,13 @@ def calci_tilt_angles(data,dtime,alpha=0.98):
     global angleY
     global angleZ
     
-    angleX= wrap(alpha*(angleAccX + wrap(angleX + data['gyro']['x']*dtime - angleAccX,180)) + (1.0-alpha)*angleAccX,180)
-    angleY = wrap(alpha * (angleAccY + wrap(angleY + data['gyro']['y'] * dtime - angleAccY, 180)) + (1.0 - alpha) * angleAccY, 180)
-    angleZ += data['gyro']['z']*dtime;
+    sensor_index=sensor_no-1
+    
+    angleX[sensor_index]= wrap(alpha*(angleAccX + wrap(angleX[sensor_index] + data['gyro_biased']['x']*dtime - angleAccX,180)) + (1.0-alpha)*angleAccX,180)				#the explanation is given below
+    angleY[sensor_index] = wrap(alpha * (angleAccY + wrap(angleY[sensor_index] + data['gyro_biased']['y'] * dtime - angleAccY, 180)) + (1.0 - alpha) * angleAccY, 180)
+    angleZ[sensor_index] = wrap(angleZ[sensor_index] + data['gyro_biased']['z'] * dtime, 180)
  
-    return angleX, angleY, angleZ
+    return angleX[sensor_index], angleY[sensor_index], angleZ[sensor_index],angleAccX,angleAccY
 
 def calci_tilt_accangles(data, dtime, sensor, alpha=0.98):
     x, y, z = data['accel']['x'], data['accel']['y'], data['accel']['z']
@@ -209,10 +211,77 @@ def calibrate_checkgyro(i2c,address,sensor_no,num_samples=200):#1000
         gyroylist.append(gyro_y)
         gyrozlist.append(gyro_z)
     
-    if (variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15 and variance(gyroxlist) < 0.15):
-        print("variance checks out", variance(gyroxlist),variance(gyroxlist),variance(gyroxlist))
+    sensor_index=sensor_no-1
+    sensor_var_threshold=[[1.2,1.2,1.2],[1.2,1.2,1.2],[1.2,1.2,1.2]]
+    
+    if (variance(gyroxlist) < sensor_var_threshold[sensor_index][0] and variance(gyroylist) < sensor_var_threshold[sensor_index][1] and variance(gyrozlist) < sensor_var_threshold[sensor_index][2]):
+        print("variance checks out", variance(gyroxlist),variance(gyroylist),variance(gyrozlist))
     else:
         print("variance doesn't check out")
-        print(variance(gyroxlist),variance(gyroxlist),variance(gyroxlist) )
+        print(variance(gyroxlist),variance(gyroylist),variance(gyrozlist) )
+
+
+
+'''
+The Line in Question:
+python
+Copy code
+angleX = wrap(alpha * (angleAccX + wrap(angleX + data['gyro']['x'] * dtime - angleAccX, 180)) + (1.0 - alpha) * angleAccX, 180)
+Purpose:
+This line updates the angleX, which represents the pitch angle, by combining data from the accelerometer and gyroscope using a complementary filter. However, it does so with additional complexity to handle potential drift and error correction.
+
+Breakdown:
+Basic Structure:
+
+python
+Copy code
+angleX = wrap(
+    alpha * (gyro-based term + correction) + (1.0 - alpha) * accel-based term, 
+    180
+)
+The formula combines two main components:
+
+A gyro-based term: The angular rate data from the gyroscope integrated over time to estimate the angle.
+An accel-based term: The direct angle estimate from the accelerometer.
+alpha: Controls the balance between the gyro and accelerometer data.
+
+wrap(): Ensures the angle remains within a specific range, typically [-180, 180] degrees.
+
+Gyro-Based Term:
+
+python
+Copy code
+gyro-based term = angleAccX + wrap(angleX + data['gyro']['x'] * dtime - angleAccX, 180)
+data['gyro']['x'] * dtime: This part integrates the gyroscope's rate of rotation (in degrees per second) over the time interval dtime to estimate the angle change.
+angleX + data['gyro']['x'] * dtime: Adds the new estimated angle change to the previous angle (angleX).
+- angleAccX: Subtracts the accelerometer's angle to correct the drift that accumulates when integrating gyroscope data over time.
+wrap(..., 180): Ensures the corrected gyro-based angle remains within [-180, 180] degrees.
+angleAccX + ...: Adds the accelerometer's direct angle to the corrected gyro-based angle. This suggests that the gyro-based term is being continuously corrected by the accelerometer's estimate.
+Weighted Combination with Accel-Based Term:
+
+python
+Copy code
+alpha * (gyro-based term) + (1.0 - alpha) * angleAccX
+alpha * (gyro-based term): Multiplies the gyro-based term (now corrected by the accelerometer) by alpha. This gives more weight to the gyroscope's data for rapid, short-term changes.
+(1.0 - alpha) * angleAccX: Multiplies the accelerometer's angle by (1.0 - alpha), giving it more influence for long-term stability.
+Final Wrapping:
+
+python
+Copy code
+wrap(..., 180)
+The entire expression is passed through the wrap function again to ensure the final angleX remains within [-180, 180] degrees.
+What Makes This More Than a Standard Complementary Filter?
+Error Correction Mechanism:
+
+The line includes an additional correction term: wrap(angleX + data['gyro']['x'] * dtime - angleAccX, 180). This corrects the gyro-based estimate by subtracting the accelerometer's direct angle estimate. It helps mitigate the drift that typically occurs when integrating gyroscope data over time.
+Nested Wrapping:
+
+The use of wrap within the gyro-based term suggests that the angle is being carefully controlled to avoid issues like overflow or excessive drift. This ensures that the angle doesn't exceed the expected range, which could lead to errors in angle calculation.
+Continuous Adjustment:
+
+The formula continuously adjusts the gyroscope's estimate by comparing it to the accelerometer's reading, rather than simply blending the two data sources. This makes it more robust against the drift that can occur in gyroscope data over time.
+Summary:
+This line is indeed more sophisticated than a typical complementary filter. It incorporates a correction mechanism to adjust the gyroscope's angle estimate using the accelerometer's direct angle, which is then wrapped to stay within a valid range. This approach aims to combine the strengths of both sensors: the stability of the accelerometer and the responsiveness of the gyroscope, while actively correcting for drift and maintaining accuracy over time.
+'''
 
 
