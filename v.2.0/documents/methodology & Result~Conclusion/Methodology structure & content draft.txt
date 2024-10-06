@@ -1,0 +1,76 @@
+System Architecture
+	- Basic overall mention of system's structure
+	- Design:
+		- Placement of sensors; why and some details about sensor and location
+		- Shoulder Strap; why and some details
+		- Placement of processing unit; why, its limitations and ideal structure
+		- BLE Module; why and some details
+		- ML Processing Unit; why and some details
+	- Operation:
+		- A Calibration Routine for static posture; details on it
+		- sensors for accessing raw data and processing using comp filter for tilt recognition
+		- specific features being sent to PC for pre-processing
+		- Classified using specific ML algo
+
+Feature Selection and Training:
+	- Data set Acquisition:
+		- The entire process
+	- Feature Set Selection:
+	- ML Classifier selection:
+
+
+{top details the structure}
+-------------------------------------------------------------------------------------------
+{bottom details the content}
+
+
+
+System Architecture:
+	Our system's operation primarily depends on the data acquired by IMU sensors placed on the body, which are then pre-processed to extract features. These features are then fed to a classifier to identify the user's sitting posture, therefore notifying the user.
+
+-Design:
+	-Our system is designed to extract movement/ orientation related data in sitting posture from 3 different locations. These locations are:
+		- The Acromion Process
+		- The t5 vertebrae
+		- The Thoracic junction{saii}
+The Acromion process and t5 vertebrae has been chosen since it provided remarkable accuracy in existing posture monitoring systems that use IMU sensors[ref]. This is understandable due to the significant deviation in its location and orientation during postural changes.
+The thoracic junction is used as location to counter the system's bias towards the posterior of the body with the T5 vertebrae. This location proved to be the best location to extract data from the anterior of the body.
+	-The placement of these sensors were achieved using a Neoprene Velcro shoulder strap described in fig 1. This adjustable shoulder strap's surface are covered all the 3 mentioned areas and was as a result used to embed the sensors within. Care was taken to not let the shoulder strap's influence affect the user's normal posture. The acromion and t5 sensors were fixed whereas the chest sensor was adjustable to relocate the sensor to correct position for different individuals with different widths. The sensors used for this purpose is MPU-6050 which is capable of acquiring 6 dof , viz, acceleration and rotational speed in all 3 axes. These data were capable of transmitting through I2c medium for fast multi-device communication aiding our purpose. Also is low power.
+	-The processing unit was to be located within the vicinity of the sensors therefore it was embedded within the strap near the acromion process since it held enough space to hold the mpu. The processing unit was connected to the sensors using a series of wires designed to align with the strap's structure. There are some limitations to its placement, with reports of discomfort arising from its inflexible structure. The objective of our system is to improve the processing and classification, therefore the processing unit's size had been reduced as much as possible, but ideally needs to be flat and flexible with zero protruding height. The processing unit chosen is RP Pico for its small size and greater memory in 20kb sram. It also has in built libraries for future prospectes of embedded ML algorithms.  Also is low power.
+	- A BLE module was also used to transfer the relevant data to the Classifier present in the PC. A HC-05 was used explicitly for its accessibility to high speeds and low power operation.
+	- The Classifier was present in the PC of the user, running in the background. It classified based on the data from the BLE module and presented relevant info to the user when needed. The classifier chosen for this purpose was KNN. This classifier was selected for after its better performance from a set of experiments run detailed in the following sections. The classifier took a mean time of 1.5s for inference.{saii}
+
+-Operation:
+	- Once the shoulder strap embedded with the sensors and the processing unit is worn by the user, the user is expected to perform a calibration routine. This calibration routine is done to eliminate the Zero-Error that arises from the gyroscopic measurements from each user. During this 10-sec routine, the user is expected to sit in a static neutral posture depicted in fig.1. The zero-error bias is calculated by averaging the static gyroscopic signal.
+	- Each sensors output a 6 dof measurement viz,  acceleration and rotational speed in all 3 axes. Each sensor is sampled at 45Hz given the processing limits of the Pico. While the acceleration signal is not pre-processed, the gyroscopic signals are altered by subtracting from it the zero-error bias value calculated from the calibration routine. This error allows gyroscope to output true zero values. The processing unit then acquires these signals and processes to extract new information known as tilt. The tilt is calculated in two ways: one using complementary filter and the other using only acceleration signals. The complementary filter considers both acceleration and gyroscopic observations to calculate the tilt given the formula depicted below.The complementary filter effectively combines the low-frequency stability of the accelerometer (which measures tilt based on gravity but is susceptible to noise from linear movements) with the high-frequency responsiveness of the gyroscope (which tracks rotation but drifts over time). This fusion helps to maintain a more reliable and stable estimate of tilt angles, reducing noise and drift.  It applies a weighted combination of the accelerometer and gyroscope data. The optimal weight chosen for this is 0.95. The formula is further advanced to wrap around +180 to -180 degrees the signal to better compensate the drift accumulated by gyroscopic readings. Despite complementary filter's advantage over the acceleration based tilt, due to the static nature of sitting postures, both of their significance is taken into account
+	- - From all the features extracted the meaningful ones are sent to the classifier via the BLE module using a UART module to communicate with the processor. The classifier is then used to identify the correct posture of the user. This posture is displayed to the user via an application.{saii}
+
+
+
+Feature Selection and Training:{saii}
+For the purpose of analyzing the data and training the ML algorithms with respect to it, appropriate data needs to be acquired. The following section highlights how that data was acquired.
+- Data set Acquisition:{saii}
+	- The data was acquired from 12 healthy individuals with a mean age, height and weight of x, y, z. Their respective data is given below in the table 1.
+	- The data acquisition routine began with the user being requested to undergo the calibration routine outlined in the above section. The user was then asked to relax and begin with the first posture being neutral. Each user was seated in a stool with no back support. The user was requested to stay in a specific posture for 10-15 seconds each. The user was asked to best represent the postures depicted in fig.4. The order of each posture being taken is:
+		- Neutral
+		- Slouch Mild
+		- slouch mod
+		- slouch ext
+		- hunch Mild
+		- hunch ext
+		- hunch right
+		- hunch left
+		- lean right
+		- lean left
+As such 94000 data points were observed with approx. 12000 datapoints per posture.
+
+- Feature Set Selection:{saii}
+	- Including the raw data measurements from each sensor, and subsequently derived tilt angles using two different methods there is a total of 33 features. Each sensor has 11 features with 6 dof raw data measurements a 5 tilt angles with x and y being derived from both complementary filter and acceleration data and z only being derived from acceleration. Among the 33 features there were some features that were deemed redundant given by the details of said features outlined in table 5. The ideal posture monitoring system would be a stand-alone system worn by the user not requiring any external processing mechanism. Therefore in order to aid this objective, a feature reduction/selection process was undergone to determine the best features. The methods used for feature selection and extraction and their reasons are given below:
+		- 
+		- 
+		- 
+
+- Classifier Selection:{saii}
+	- Multiple ML models were experimented with to find out the best performing model. This model was deemed KNN providing 94% accuracy with only 2 or 3 of user-selected features. viz, x and y axes complementary tilt angles. The performance details of each classifier is detailed in table 9. The testing and training set were divided by a 0.75 ratio.
+
+

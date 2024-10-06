@@ -1,0 +1,13 @@
+The entire system's overall design: system overview architecture.png@
+The system's Hardware design architecture: system hardware architecture old.jpeg@
+The acromion, t5 and sternum locations: its names. jpg and jfif@
+IMU sensors, pico, and ble module: its names. jpg and jfif@
+eq for zero-error bias calc: zbias eq.png@
+the real hardware system: back and front look.jpgs@
+Complementary tilt angle formula: comp filt.png@
+the various postures to be considered: posture.png@
+Table for The spread of each feature: dataspread.png@
+table for performance of each model: classifier performance.png@
+
+
+

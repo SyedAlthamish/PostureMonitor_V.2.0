@@ -1,0 +1,17 @@
+Tasks to do yet:
+- paraphrase the introduction
+- add pics, tables, eq.@
+- add ref
+- Add lit.review?
+- correct/better the grammar in everything below introduction
+- more detail on complementary tilt eq and how it was acquired.
+- Table of patients taken
+- pic/eq/table for
+	- fix old hardware diagram
+	- before and after zero-error bias elimination
+	- a pic of the KNN model employed
+	- label real time worn device pic
+	- Complementary filt eq
+	- Zero bias eq
+	- worn for data acq.: data worn.png
+	- Images at top or bottom of a column and proper alignment
