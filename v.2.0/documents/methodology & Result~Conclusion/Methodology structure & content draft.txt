@@ -73,4 +73,59 @@ As such 94000 data points were observed with approx. 12000 datapoints per postur
 - Classifier Selection:{saii}
 	- Multiple ML models were experimented with to find out the best performing model. This model was deemed KNN providing 94% accuracy with only 2 or 3 of user-selected features. viz, x and y axes complementary tilt angles. The performance details of each classifier is detailed in table 9. The testing and training set were divided by a 0.75 ratio.
 
+------------------------------------------------------------------------------grammar improved version:--------------------------------------------------------------------------
+### A. Design:
+Our system is designed to extract movement and orientation-related data during sitting posture from three different locations. These locations are:
+- The Acromion Process
+- The T5 vertebra
+- The Sternum (SAII)
 
+The Acromion Process and T5 vertebra were chosen due to their remarkable accuracy in existing posture monitoring systems that use IMU sensors. This is understandable due to the significant deviation in location and orientation during postural changes. The thoracic junction is used to counterbalance the system's bias toward the posterior of the body with the T5 vertebra. This location proved to be the best for extracting data from the anterior of the body.
+
+The placement of these sensors was achieved using a Neoprene Velcro shoulder strap, as described in Figure 1. This adjustable shoulder strap covers all three mentioned areas and was used to embed the sensors within. Care was taken to avoid letting the shoulder strap's influence affect the user's normal posture. The Acromion and T5 sensors were fixed, whereas the chest sensor was adjustable to relocate it to the correct position for individuals with different body widths. The sensors used for this purpose were MPU-6050s, which are capable of acquiring 6 degrees of freedom (DoF), namely, acceleration and rotational speed on all three axes. This data could be transmitted through the I2C medium, allowing fast multi-device communication, aiding our purpose, and operating at low power.
+
+The processing unit was located near the sensors and was embedded within the strap near the Acromion Process, as this area had enough space to hold the MPU. The processing unit was connected to the sensors via a series of wires designed to align with the strap's structure. Some limitations were noted in its placement, with reports of discomfort due to its inflexible structure. The objective of our system is to improve processing and classification; therefore, the processing unit's size was reduced as much as possible but ideally needs to be flat and flexible with zero protruding height. The Raspberry Pi Pico was chosen for its small size and ample memory (20kb SRAM). It also includes built-in libraries for the future prospect of embedding ML algorithms. Additionally, it is low power.
+
+A BLE module was used to transfer relevant data to the classifier on the PC. The HC-05 module was selected for its accessibility to high speeds and low power operation.
+
+The classifier was run in the background on the user’s PC. It classified data received from the BLE module and presented relevant information to the user as needed. The classifier chosen for this purpose was KNN, as it demonstrated better performance in a set of experiments detailed in the following sections. The classifier took a mean time of 1.5 seconds for inference.
+
+### B. Operation
+Once the shoulder strap embedded with the sensors and processing unit is worn by the user, they are expected to perform a calibration routine. This routine is conducted to eliminate the zero-error arising from the gyroscopic measurements for each user. During this 10-second routine, the user sits in a static neutral posture, as depicted in Figure 1. The zero-error bias is calculated by averaging the static gyroscopic signal.
+
+Each sensor outputs a 6-DoF measurement, namely, acceleration and rotational speed on all three axes. Each sensor is sampled at 45Hz, given the processing limits of the Pico. While the acceleration signal is not pre-processed, the gyroscopic signals are altered by subtracting the zero-error bias value calculated during the calibration routine. This adjustment allows the gyroscope to output true zero values. The processing unit then acquires these signals and processes them to extract new information, known as tilt. The tilt is calculated in two ways: using a complementary filter and using only acceleration signals.
+
+The complementary filter considers both acceleration and gyroscopic observations to calculate the tilt using the formula depicted below. The complementary filter effectively combines the low-frequency stability of the accelerometer (which measures tilt based on gravity but is susceptible to noise from linear movements) with the high-frequency responsiveness of the gyroscope (which tracks rotation but drifts over time). This fusion helps maintain a more reliable and stable estimate of tilt angles, reducing noise and drift. It applies a weighted combination of the accelerometer and gyroscope data. The optimal weight chosen is 0.95. The formula is further advanced to wrap the signal around +180 to -180 degrees to better compensate for the drift accumulated by gyroscopic readings. Despite the complementary filter's advantage over the acceleration-based tilt, due to the static nature of sitting postures, both methods are taken into account.
+
+From all the extracted features, the meaningful ones are sent to the classifier via the BLE module using a UART module to communicate with the processor. The classifier then identifies the user's posture and displays it to them via an application.
+
+### III. Feature Selection and Training
+
+#### A. Dataset Acquisition:
+The data was acquired from 12 healthy individuals with a mean age, height, and weight of X, Y, and Z, respectively. Their respective data is presented in Table 1. 
+
+The data acquisition routine began with the user undergoing the calibration routine outlined above. They were then asked to relax and begin with the first posture, which was neutral. Each user was seated on a stool with no back support and was requested to remain in a specific posture for 10-15 seconds. The user was asked to replicate the postures depicted in Figure 4. The order of the postures is as follows:
+
+- Neutral
+- Mild Slouch
+- Moderate Slouch
+- Extended Slouch
+- Mild Hunch
+- Extended Hunch
+- Right Hunch
+- Left Hunch
+- Lean Right
+- Lean Left
+
+Approximately 94,000 data points were recorded, with about 9,000 data points per posture.
+
+#### B. Feature Set Selection:
+Including the raw data measurements from each sensor and the tilt angles derived using two different methods, there is a total of 33 features. Each sensor provides 11 features: 6 DoF raw data measurements and 5 tilt angles. The X and Y axes are derived from both complementary filter and acceleration data, while the Z axis is derived only from acceleration data. Some features were deemed redundant, as detailed in Table 5. 
+
+The ideal posture monitoring system would be a stand-alone, wearable system that does not require external processing. To support this goal, a feature reduction/selection process was carried out to determine the most relevant features. The methods used for feature selection and extraction are discussed below:
+- 
+- 
+- 
+
+#### C. Classifier Selection:
+Multiple ML models were tested to find the best-performing one. The KNN model, which used only 2 or 3 user-selected features (complementary tilt angles in the X and Y axes), provided 94% accuracy. The performance details of each classifier are shown in Table 9. The training and testing datasets were divided by a 0.75 ratio.
