@@ -35,6 +35,14 @@ def printall_Rtime(time_stamp,datalist,tiltlist,dt):
         print(f,end="")
     print("\n",end="n")
     
+    
+'''
+{
+Function: to print data in the following format of output string and input argument for real time integration with ML model running in PC
+    Input: time_stamp,datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}},tiltlist,dt ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
+    Output: prints as 68comp,68compy,68compz,69compx,69compy,69comp
+}                
+'''    
 def printall_Rtime6Comp(time_stamp,datalist,tiltlist,dt):
     
     '''
