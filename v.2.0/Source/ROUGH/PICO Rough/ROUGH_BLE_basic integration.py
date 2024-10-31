@@ -1,3 +1,6 @@
+'''{
+    A basic integration of BLE hc05 to computer
+    }'''
 from machine import Pin, UART
 import utime
 

@@ -1,3 +1,7 @@
+'''{
+    Library to interface mc to mpu6050
+    }'''
+
 from machine import Pin, I2C
 import utime
 import math 

@@ -39,7 +39,7 @@ def printall_Rtime(time_stamp,datalist,tiltlist,dt):
 '''
 Function: to print data in the following format of output string and input argument
     Input: get_timestamp() output[string: MM.SS] , datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}} ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
-    Output: prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no for 3 sensors
+    Output: prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,tilt_accx,tilt_accy,dt,sensor_no for 3 sensors
 '''
 def printall(time_stamp,datalist,tiltlist,dt):
     datatypes=['accel','gyro_biased']			#the different indexes within datalist

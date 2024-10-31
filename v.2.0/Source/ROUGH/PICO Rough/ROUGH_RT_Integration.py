@@ -1,15 +1,5 @@
 '''
-File Name: DAcq_run.py
-
-Purpose: This code runs the Data acquisiton protocol
-
-Functional Description:-
-    1. once powered, the user is given 10 seconds to prepare himself for the calibration phase
-    2. The calibration performance check also occurs
-    3. the values are being printed with timestamps and the timestamps must be noted when changing and during postures
-    
-Note:
-    - The gbz values or gyro_biased_z values have an abnormality where sudden unpredictable spikes from ~0 to ~ +-3.8 occurs. The matter hasn't been resolved.
+an attempt to run a Real time integration of the system to the PC classifier. is the MC code
 '''
 
 #importion of libraries
@@ -22,7 +12,7 @@ from lib_misc import *
 #The setting of MPU6050 sensor's addresses
 pin1 = Pin(0, Pin.OUT)			#making pin_no_0 or GPIO_0 as output mode
 pin1.value(1)					#making GPIO_0 as HIGH to represent one of the sensors in i2c0 channel as addresses 0x69
-utime.sleep(3)
+#utime.sleep(3)
 
 #Initialization of I2C, MPU, and Data-Processing
 i2c = I2C(0, scl=Pin(21), sda=Pin(20), freq=400000)		#initializing i2c0 channel
@@ -31,7 +21,7 @@ init_mpu6050(i2c, 0x68)									#initializing first sensor in i2c0
 init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
 init_mpu6050(i2c1,0x68)									#initializing first sensor in i2c1		
 
-utime.sleep(7)
+#utime.sleep(7)
 
 #calibration routine for gyros
 calibrate_gyro(i2c,0x68,1)
@@ -63,7 +53,8 @@ while True:
     tiltlist=[tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68,tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69,tilt_x_681, tilt_y_681, tilt_z_681, tilt_xacc_681, tilt_yacc_681]
     datalist=[data_68,data_69,data_681]								#all 3 sensor's data are grouped together into a list correspondent to their sensor no.
     
-    printall(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no ; func located in lib_misc.py
+    printall_Rtime(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no ; func located in lib_misc.py
+    
     #estimated sampling time is 0.22 sec or ~50Hz upon observing dt
 
 

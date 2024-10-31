@@ -1,0 +1,101 @@
+{This file is designed to help the drafting of introduction part of the posture monitoring system project/research paper and is arranged in the following was:
+d1 indicating the 1st draft i.e. 6th sem thesis paper
+bp1-5: indicating base papers 1-5 whose link is listed under each ind. topic in the draft named 'introduction 2nd draft.docx'; additionally the links are provided at notion at https://www.notion.so/Technical-Paper-Review-Innovation-List-6cf34aff9f2546c5a91bd531fab431ce?pvs=4#28ae96842d9e4207ad33f662d8a4afd2
+
+Each paper has points extracted and then marked with @ to be then listed in an order to be established in draft paper}
+
+d1:
+- about backpain@
+- back pain suffering statistics 
+- causes for these back pains
+- result of these back pains @
+- therefore cure for these back pains, one of which is our work. @
+
+bp1:
+- sitting most common @
+- specific disorder clbp and its details @
+- consequence of the chronic back pain:  1 in 5 adults.@
+- a bit of the existing cures.
+- a short disadvantage of the existing cures.
+- ?does lit.survey within intro? 
+
+bp2:
+- mobile user estimates and a future projection. @
+- the multi-utility and thus prolonged utility of mobiles.
+- basic consequence of such usage. @
+- possible cure on awareness
+- Cervical Spine Stress @
+- degree based classification of bad postures and its resulting consequences. @
+- 2 or 3 diseases as a result and its explanation. @
+- happiness loss as a result @
+
+- possible study for cause of back pain being poor posture. @
+- possible study for large no of people having sitting jobs.@
+bp3:
+- mentioning of growing tech.@
+- back pain third most common reason for people @
+- The necessity of 
+
+bp4:
+- looking down is equivalent to placing a 60 pound weight @
+- Kyphosis @
+- paper ref on exercise and improvement to prevent kyphosis @
+- mentions 3 elements among which ours is one @
+- The threat of info breach with visual systems
+- IMU sensors provide variety of info
+
+bp5:
+- study in reduction of musculoskeletal risk from ergonomic postures.@
+- a large no of pressure sensor based posture monitoring system.
+
+d2(unordered):
+- back pain suffering statistics
+- causes for these back pains
+- result of these back pains
+- therefore cure for these back pains, one of which is our work
+- sitting most common
+- specific disorder clbp and its details
+- consequence of the chronic back pain: 1 in 5 adults
+- ?does lit.survey within intro?
+- mobile user estimates and a future projection
+- basic consequence of such usage
+- Cervical Spine Stress
+- degree based classification of bad postures and its resulting consequences
+- 2 or 3 diseases as a result and its explanation
+- happiness loss as a result
+- possible study for cause of back pain being poor posture
+- possible study for large no of people having sitting jobs
+- mentioning of growing tech
+- back pain third most common reason for people
+- looking down is equivalent to placing a 60 pound weight
+- Kyphosis
+- paper ref on exercise and improvement to prevent kyphosis
+- mentions 3 elements among which ours is one
+- study in reduction of musculoskeletal risk from ergonomic postures
+
+d2(ordered):
+{note: |^ means moved upwards and combined; X means not performed}
+- sitting most common@
+- back pain third most common reason for people@
+- back pain suffering statistics@
+- mobile user estimates and a future projection@
+- looking down is equivalent to placing a 60 pound weight@
+- mentioning of growing tech@
+- causes for these back pains@
+- specific disorder clbp and its details@
+- consequence of the chronic back pain: 1 in 5 adults@
+- Kyphosis@
+- paper ref on exercise and improvement to prevent kyphosis@
+- 2 or 3 diseases as a result and its explanation@
+- result of these back pains@
+- Cervical Spine Stress@ |^
+- happiness loss as a result@
+- basic consequence of such usage@ X
+- degree based classification of bad postures and its resulting consequencesX
+- study in reduction of musculoskeletal risk from ergonomic postures @
+- therefore cure for these back pains, one of which is our work@
+- mentions 3 elements among which ours is one@
+- advantage of human privacy@
+- ?does lit.survey within intro?
+- possible study for cause of back pain being poor posture
+- possible study for large no of people having sitting jobs

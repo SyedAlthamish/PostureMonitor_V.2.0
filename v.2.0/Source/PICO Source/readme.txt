@@ -1,0 +1,2 @@
+- PICO Source is a file containing source code that runs in the PICO microcontroller. 
+- The additional files contains code that aren't necessary but helpful
