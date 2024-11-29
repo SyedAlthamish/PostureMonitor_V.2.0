@@ -1,3 +1,7 @@
+'''{
+    File is used to combine multiple ML ready files into one big file in CSV
+    }'''
+
 import pandas as pd
 
 # List of specific CSV files to combine

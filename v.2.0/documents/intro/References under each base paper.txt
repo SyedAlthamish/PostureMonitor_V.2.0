@@ -1,0 +1,159 @@
+- This text document contains all the references cited by the 5 base papers referred to @ https://www.notion.so/Technical-Paper-Review-Innovation-List-6cf34aff9f2546c5a91bd531fab431ce?pvs=4#28ae96842d9e4207ad33f662d8a4afd2
+- For context this collection of base papers are used as references and their ref are taken for our paper.
+
+
+Base paper 1's references:
+1. Chhikara A, Rice ASC, McGregor AH, Bello F. Wearable device for monitoring disability associated with low back pain. *Reproduct Biol Anaesth (SORA)* 2008; 16:2817-2833.  
+2. El-Sayed B, Farra N, Moacdieh N, Hajj H, Haidar R. A novel mobile wireless sensing system for real-time monitoring of posture and spine stress. *IEEE Trans Neural Syst Rehabil Eng* 2011; 13: 18-23.  
+3. Brigante CMN, Abbate N, Basile A. Towards Miniaturization of a MEMS-Based Wearable Motion Capture System. *IEEE Transact Industrial Electronics* 2011; 58: 246-278.  
+4. Nemec D, Janota A, Hrubos M, Simak V. Intelligent Real-Time MEMS Sensor Fusion and Calibration. *IEEE Sensors J* 2016; 16: 1558-1748.  
+5. Fachin F, Nikles SA, Dugundji JA, Wardle BL. Analytical extraction of residual stresses and gradients in MEMS structures with application to CMOS-layered materials. *J Micromech Microeng* 2011; 21: 095017.  
+6. Donatell GJ, Meister DW, O’Brien JR, Thurlow JS, Webster JG, Salvi FJ. A simple device to monitor flexion and lateral bending of the lumbar spine. *IEEE Transact Neural Syst Rehab Eng* 2005; 13: 1534-4320.  
+7. Garcia E, Ding H, Sarela A, Karunanithi M. Can a mobile phone be used as a pedometer in an outpatient cardiac rehabilitation program. *IEEE/ICME Int Confer Complex Med Eng (CME)* 2010.  
+8. Bertolotti GM, Cristiani AM, Colagiorgio P, Romano F, Bassani E, Caramia N, Ramat S. A wearable and modular inertial unit for measuring limb movements and balance control abilities. *IEEE Sensors J* 2016; 16: 1558-1748.  
+9. Liu H, Li R, Liu S, Tian S, Du J. SmartCare: Energy-efficient long-term physical activity tracking using smartphones. *Tsinghua Sci Technol* 2015; 20: 348-363.  
+10. Alcaraz JC, Moghaddamnia S, Peissig J. An android-based application for digital gait performance analysis and rehabilitation. *IEEE 17th International Conference on e-Health Networking, Applications and Services (Healthcom): Short and Demo Papers* 2015.  
+11. Ladenbauer J, Minassian K, Hofstoetter US, Dimitrijevic MR, Rattay F. Stimulation of the human lumbar spinal cord with implanted and surface electrodes: A computer simulation study. *IEEE Transact Neural Syst Rehab Eng* 2010; 18: 1534-4320.  
+12. Tsai MH, Liu YC, Liang KC, Fang W. Monolithic CMOS—MEMS pure oxide tri-axis accelerometers for temperature stabilization and performance enhancement. *J Microelectromech Syst* 2015; 24: 1057-7157.  
+13. Millor N, Lecumberri P, Gomez M, Martínez-Ramírez A, Izquierdo M. Drift-free position estimation for periodic movements using inertial units. *IEEE J Biomed Health Informat* 2014; 18: 2168-2194.  
+14. Qu H, Fang D, Xie H. A single-crystal silicon 3-axis CMOS-MEMS accelerometer. *Proc IEEE Sensors Conf*, Vienna, Austria, 2004.  
+15. Samiei-Zonouz R, Memarzadeh-Tehran H, Rahmani R. Smartphone-centric human posture monitoring system. *IEEE Canada Int Human Technol Confer (IHTC)* 2014.  
+16. Shekeran SC, Sangeetha J. Analysis of age groups and motion speed using smartphone accelerometers. *Int Confer Condition Assess Tech Elect Syst (CATCON)* 2015.  
+17. Sun CM, Tsai MH, Liu YC, Fang W. Implementation of a monolithic single proof-mass tri-axis accelerometer using CMOS-MEMS technique. *IEEE Trans Electron Devices* 2010; 57: 1670-1679.  
+18. Xu W, Huang MC, Amini N, He L, Sarrafzadeh M. eCushion: A textile pressure sensor array design and calibration for sitting posture analysis. *IEEE Sensors J* 2013.  
+19. Bai YW, Wu SC, Tsai CL. Design and implementation of a fall monitor system by using a 3-axis accelerometer in a smartphone. *IEEE 16th Int Symposium* 2012.  
+20. Adachi Y, Miyamoto M, Kawai J. Improvement of SQUID magnetometer system for extending application of spinal cord evoked magnetic field measurement. *IEEE Transact Appl Superconduct* 2011; 21: 1051-8223.  
+21. Hu Y, Stoeling A, Wang YT, Zou Y, Sarrafzadeh M. Providing a cushion for wireless healthcare application development. *IEEE Transact Digital Object Identifier* 2010; 22: 278-664.  
+22. Zhong S, Wang L, Bernardos AM, Song M. An accurate and adaptive pedometer integrated in mobile health application. *IET Int Confer Wireless Sensor Network* 2010.
+
+Base paper 2's references:
+
+[1]	Statista (2017) Number of Mobile Phone Users Worldwide 2013-2019. Statista.
+https://www.statista.com/statistics/274774/forecast-of-mobile-phone-users-worldwide/
+[2]	Kenneth, H. (2014) Assessment of Stresses in the Cervical Spine Caused by Posture and Position of the Head. Surgical technology international, 25, 277-279.
+[3]	Jung, S., Lee, N., Kang, K., Kim, K. and Lee, D. (2016) The Effect of Smartphone Usage Time on Posture and Respiratory Function. Journal of Physical Therapy Science, 28, 186-189.
+[4]	Riskind, J.H. and Gotay, C.C. (1982) Physical Posture: Could It Have Regulatory or Feedback Effects on Motivation and Emotion? Motivation and Emotion, 6, 273-298.
+https://doi.org/10.1007/BF00992249
+[5]	Curone, D., Bertolotti, G., Cristiani, A., Secco, E. and Magenes, G. (2010) A Real-Time and Self-Calibrating Algorithm Based on Triaxial Accelerometer Signals for the Detection of Human Posture and Activity. IEEE Transactions on Information Technology in Biomedicine, 14, 1098-1105.
+https://doi.org/10.1109/TITB.2010.2050696
+[6]	Dai, J., Bai, X., Yang, Z., Shen, Z. and Xuan, D. (2010) Mobile Phone-Based Pervasive Fall Detection. Personal and Ubiquitous Computing, 14, 633-643.
+https://doi.org/10.1007/s00779-010-0292-x
+[7]	Hermanis, A., Nesenbergs, K., Cacurs, R. and Greitans, M. (2013) Wearable Posture Monitoring System with Biofeedback via Smartphone. Journal of Medical and Bioengineering, 2, 40-44.
+https://doi.org/10.12720/jomb.2.1.40-44
+[8]	Baek, J.H. and Yun, B.-J. (2010) Posture Monitoring System for Context Awareness in Mobile Computing. IEEE Transactions on Instrumentation and Measurement, 59, 1589-1599.
+https://doi.org/10.1109/TIM.2009.2022102
+[9]	Lee, H., Choi, Y., Lee, S. and Shim, E. (2013) Smart Pose: Mobile Posture-Aware System for Lowering Physical Health Risk of Smartphone Users. CHI '13 Extended Abstracts on Human Factors in Computing Systems, Paris, April 27-May 2 2013, 2257-2266.
+https://doi.org/10.1145/2468356.2468747
+[10]	Android Developers (2017) Sensor. developer.android.com.
+https://goo.gl/LyPNnS
+[11]	Lawanont, W., Mongkolnam, P. and Nukoolkit, C. (2015) Smartphone Posture Monitoring System to Prevent Unhealthy Neck Postures. 2015 12th International Joint Conference on Computer Science and Software Engineering (JCSSE), Songkhla, 22-24 July 2015, 331-336.
+https://doi.org/10.1109/JCSSE.2015.7219819
+[12]	Elliot, A.J., Maier, M.A., Moller, A.C., Friedman, R. and Meinhardt, J. (2007) Color and Psychological Functioning: The Effect of Red on Performance Attainment. Journal of Experimental Psychology: General, 136, 154-168.
+https://doi.org/10.1037/0096-3445.136.1.154
+
+Base paper 4's references:
+[1] OLGA KHAZAN, “What Texting Does to the Spine,” The Atlantic,
+November 2014.
+[2] American Academy of Orthopedic Surgeons, “Kyphosis (Roundback) of
+the Spine“, August 2016.
+[3] Supriya Sathyanarayana, Ravi Kumar Satzoda, Suchitra Sathyanarayana,
+Srikanthan Thambipillai, “Vision-based patient monitoring: A comprehensive review of algorithms and technologies,“ Journal of Ambient
+Intelligence and Humanized Computing, pp. 225251, November 2015.
+[4] Damien Brulin, Yannick Benezeth, Estelle Courtial, “Posture Recognition Based on Fuzzy Logic for Home Monitoring of the Elderly,“ IEEE
+Transactions on Information Technology in Biomedicine, pp. 974 - 982,
+July 2012.
+[5] Obdrzlek S1, Kurillo G, Ofli F, Bajcsy R, Seto E, Jimison H, Pavel M.,
+“Accuracy and robustness of Kinect pose estimation in the context of
+coaching of elderly population,“ International Conference of the IEEE
+Engineering in Medicine and Biology Society, pp. 11881193, September
+2012.
+[6] Taieb-Maimon M1, Cwikel J, Shapira B, Orenstein I, “The effectiveness
+of a training method using self-modeling webcam photos for reducing
+musculoskeletal risk among office workers using computers,” j.apergo,
+2011.
+[7] Dong-Jun Shin, Min-Sang Kim, Wook Song, Se Dong Min, Min Hong,
+“Implementation of Sitting Posture Monitoring System with Kinect,”
+International Conference on Multimedia and Ubiquitous Engineering,
+pp. 144-150, May 2017.
+[8] Kendall Ho, Christopher Yao, Helen Novak Lauscher, “Part2: Health
+apps, wearable, and sensors: The advancing fraintier of digital health,“
+BC medical Journal, pp. 503-506, December 2017.
+[9] Roh J, Park HJ, Lee KJ, Hyeong J, Kim S, Lee B., “Sitting Posture
+Monitoring System Based on a Low-Cost Load Cell Using Machine
+Learning,” Sensors (Basel). 2018.
+[10] Jingyuan Cheng, Bo Zhou, Mathias Sundholm, Paul Lukowicz, “Smart
+chair: What can simple pressure sensors under the chairs legs tell us
+about user activity?,” IARIA XPS Press, 2013.
+[11] Jullia Birsan, Diana Stavarache, Maria-Iuliana Dascalu, Alin
+Moldoveanu, “SpiMO - Sitting Posture Monitoring System,” RiCHI
+2017 Proceedings, 2017.
+[12] E.Hedberg, J.Norn, M.Norrlf, S.Gunnarsson, “Industrial Robot Tool Position Estimation using Inertial Measurements in a Complementary Filter
+and an EKF,“ IFAC (International Federation of Automatic Control)
+Hosting by Elsevier Ltd, pp. 12748-12752, July 2017.
+[13] A. Linkel, K. Daunoraviciene , J. Griskevisius, J. Ziziene, A. Juocevicius, I. Raudonyte, “Applications of inertial sensors in medicine: towards
+model-based rehabilitation of stroke,“ IFAC (International Federation of
+Automatic Control) Hosting by Elsevier Ltd, pp. 442-447, 2015.
+[14] Paul D. Groves, “Navigation using inertial sensors,“ IEEE Aerospace
+and Electronic Systems Magazine, pp. 42 - 69, April 2015.
+[15] Wai Yin Wong, Man Sang Wong, “Trunk posture monitoring with
+inertial sensors,” Eur Spine J, 2008.
+[16] Q. Wang, W. Chen, A.A.A. Timmermans, C. Karachristos, J.B. Martens,
+P. Markopoulos, “Smart Rehabilitation Garment for posture monitoring,”
+37th Annual International Conference of the IEEE Engineering in
+Medicine and Biology Society (EMBC), 2015.
+[17] Maheswaran Shanmugam, Sunilvignesh Nehru, Sathesh Shanmugam, “A
+wearable embedded device for chronic low back patients to track lumbar
+spine position,” Biomed Res 2018 Special Issue, 2018.
+[18] Anindya Nag, Subhas Chandra Mukhopadhyay, Jrgen Kosel, “Wearable
+Flexible Sensors: A Review,“ IEEE Sensors Journal, pp. 3949 - 3960,
+May 2017.
+[19] Giovanni Saggioab, Giancarlo Orengo, “Flex sensor characterization
+against shape and curvature changes,” Sensors and Actuators A Physical,
+pp. 221-231, April 2018.
+[20] Manju Gopinath, Angeline Kirubha, “Real Time Monitoring of Posture
+to Improve Ergonomics,” Journal of Biomedical Engineering and Medical Imaging, 2015.
+[21] Sardini, auro Serpelloni and Viviane Pasqui, “Wireless-wearable T-shirt
+for posture monitoring during rehabilitation exercises,” IEEE Transactions on Instrumentation and Measurement, pp. 439-448, 2015.
+[22] L.E. Dunne, P. Walsh, B. Smyth, and B. Caulfield, “A System for Wearable Monitoring of Seated Posture in Computer Users,” 4th International
+Workshop on Wearable and Implantable Body Sensor Networks (BSN
+2007), pp 203-207, 2007.
+[23] Harsh Gupta, “Smartphone Based Cervical Spine Stress Prevention,”
+Smartphone Based Cervical Spine Stress Prevention. Journal of Software
+Engineering and Applications , pp 110-120, 2018.
+[24] Da-Yin Liao, “Collaborative, Social-networked Posture Training (CSPT)
+through Head-and-Neck Posture Monitoring and Biofeedbacks,” 19th
+International Conference on Enterprise Information Systems (ICEIS
+2017), pp 158-165, 2017.
+[25] Azin Fathi, Kevin Curran, “Detection of spine curvature using wireless
+sensors,” Journal of King Saud University Science, pp. 553560, 2017.
+[26] Bilal El-Sayed, Noura Farra, Nadine Moacdieh, Hazem Hajj, Rachid
+Haidar, Ziad Hajj , “A novel mobile wireless sensing system for realtime monitoring of posture and spine stress,” 1st Middle East Conference
+Biomedical Engineering (MECBME), 2011.
+
+Base paper 5's references:
+1. Robertson, M.; Amick, B.C.; DeRango, K.; Rooney, T.; Bazzani, L.; Harrist, R.; Moore, A. The effects of an office ergonomics training and chair intervention on worker knowledge, behavior and musculoskeletal risk. *Appl. Ergon.* 2009, **40**, 124–135. [Google Scholar] [CrossRef] [PubMed]  
+2. Choobineh, A.; Motamedzade, M.; Kazemi, M.; Moghimbeigi, A.; Heidari Pahlavian, A. The impact of ergonomics intervention on psychosocial factors and musculoskeletal symptoms among office workers. *Int. J. Ind. Ergon.* 2011, **41**, 671–676. [Google Scholar] [CrossRef]  
+3. Goossens, R.H.M.; Netten, M.P.; Van Der Doelen, B. An office chair to influence the sitting behavior of office workers. *Work* 2012, **41**, 2086–2088. [Google Scholar] [PubMed]  
+4. Menéndez, C.C.; Amick, B.C.; Robertson, M.; Bazzani, L.; DeRango, K.; Rooney, T.; Moore, A. A replicated field intervention study evaluating the impact of a highly adjustable chair and office ergonomics training on visual symptoms. *Appl. Ergon.* 2012, **43**, 639–644. [Google Scholar] [CrossRef] [PubMed]  
+5. Taieb-Maimon, M.; Cwikel, J.; Shapira, B.; Orenstein, I. The effectiveness of a training method using self-modeling webcam photos for reducing musculoskeletal risk among office workers using computers. *Appl. Ergon.* 2012, **43**, 376–385. [Google Scholar] [CrossRef] [PubMed]  
+6. Vergara, M.; Page, Á. System to measure the use of the backrest in sitting-posture office tasks. *Appl. Ergon.* 2000, **31**, 247–254. [Google Scholar] [CrossRef]  
+7. Tan, H.Z.; Slivovsky, L.A.; Pentland, A. A sensing chair using pressure distribution sensors. *IEEE/ASME Trans. Mechatron.* 2001, **6**, 261–268. [Google Scholar] [CrossRef]  
+8. Labeodan, T.; Aduda, K.; Zeiler, W.; Hoving, F. Experimental evaluation of the performance of chair sensors in an office space for occupancy detection and occupancy-driven control. *Energy Build.* 2016, **111**, 195–206. [Google Scholar] [CrossRef]  
+9. Zemp, R.; Fliesser, M.; Wippert, P.M.; Taylor, W.R.; Lorenzetti, S. Occupational sitting behaviour and its relationship with back pain—A pilot study. *Appl. Ergon.* 2016, **56**, 84–91. [Google Scholar] [CrossRef] [PubMed]  
+10. Yu, M.; Rhuma, A.; Naqvi, S.; Wang, L.; Chambers, J. Posture Recognition Based Fall Detection System for Monitoring an Elderly Person in a Smart Home Environment. *IEEE Trans. Inf. Technol. Biomed.* 2012, **16**, 1. [Google Scholar]  
+11. Kim, K.S.; Choi, H.H.; Moon, C.S.; Mun, C.W. Comparison of k-nearest neighbor, quadratic discriminant and linear discriminant analysis in classification of electromyogram signals based on the wrist-motion directions. *Curr. Appl. Phys.* 2011, **11**, 740–745. [Google Scholar] [CrossRef]  
+12. Zhu, M.; Martínez, A.M.; Tan, H.Z. Template-based Recognition of Static Sitting Postures. *IEEE Comput. Soc. Conf. Comput. Vis. Pattern Recognit. Workshop* 2003, **5**, 1–6. [Google Scholar]  
+13. Meyer, J.; Arnrich, B.; Schumm, J.; Troster, G. Design and modeling of a textile pressure sensor for sitting posture classification. *IEEE Sens. J.* 2010, **10**, 1391–1398. [Google Scholar] [CrossRef]  
+14. Zemp, R.; Tanadini, M.; Plüss, S.; Schnüriger, K.; Singh, N.B.; Taylor, W.R.; Lorenzetti, S. Application of Machine Learning Approaches for Classifying Sitting Posture Based on Force and Acceleration Sensors. *Biomed Res. Int.* 2016. [Google Scholar] [CrossRef] [PubMed]  
+15. Ma, C.; Li, W.; Gravina, R.; Fortino, G. Posture detection based on smart cushion for wheelchair users. *Sensors* 2017, **17**, 719. [Google Scholar] [CrossRef] [PubMed]  
+16. Grandjean, E.; Hünting, W. Ergonomics of posture—Review of various problems of standing and sitting posture. *Appl. Ergon.* 1977, **8**, 135–140. [Google Scholar] [CrossRef]  
+17. Hyeong, J.H.; Roh, J.R.; Park, S.B.; Kim, S.Y.; Chung, K.R. A trend analysis of dynamic chair and applied technology. *Ergon. Soc. Korea* 2014, **33**, 267–279. [Google Scholar] [CrossRef]  
+18. Cortes, C.; Vapnik, V. Support-Vector Networks. *Mach. Learn.* 1995, **20**, 273–297. [Google Scholar] [CrossRef]  
+19. Xiong, J.; Cai, L.; Wang, F.; He, X. SVM-based spectral analysis for heart rate from multi-channel WPPG sensor signals. *Sensors* 2017, **17**, 506. [Google Scholar] [CrossRef] [PubMed]  
+20. Mathur, A.; Foody, G.M. Multiclass and binary SVM classification: Implications for training and classification users. *IEEE Geosci. Remote Sens. Lett.* 2008, **5**, 241–245. [Google Scholar] [CrossRef]  
+21. AlOmari, F.; Liu, G. Analysis of Extracted Forearm sEMG Signal Using LDA, QDA, K-NN Classification Algorithms. *Open Autom. Control Syst. J.* 2014, **6**, 108–116. [Google Scholar] [CrossRef]  
+22. Bolin, J.H.; Finch, W.H. Supervised classification in the presence of misclassified training data: A Monte Carlo simulation study in the three group case. *Front. Psychol.* 2014, **5**, 1–10. [Google Scholar] [CrossRef] [PubMed]  
+23. Lee, S.; Jin, K.; Kim, J.; Heo, G. Development of a data-mining methodology for spent nuclear fuel forensics. *J. Radioanal. Nucl. Chem.* 2017, **312**, 495–505. [Google Scholar] [CrossRef]  
+24. Bermejo, P.; Gámez, J.A.; Puerta, J.M. Knowledge-Based Systems Speeding up incremental wrapper feature subset selection with Naive Bayes classifier. *Knowl. Based Syst.* 2014, **55**, 140–147. [Google Scholar] [CrossRef]  
+25. Ellis, K.; Kerr, J.; Godbole, S.; Lanckriet, G.; Wing, D.; Marshall, S. A random forest classifier for the prediction of energy expenditure and type of physical activity from wrist and hip accelerometers. *Physiol. Meas.* 2014, **35**, 2191–2203. [Google Scholar] [CrossRef] [PubMed]  
+26. Yang, X.; Yu, Q.; He, L.; Guo, T. The one-against-all partition-based binary tree support vector machine algorithms for multi-class classification. *Neurocomputing* 2013, **113**, 1–7. [Google Scholar] [CrossRef]  
