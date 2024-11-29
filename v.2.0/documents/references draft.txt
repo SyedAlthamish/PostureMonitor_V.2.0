@@ -1,5 +1,8 @@
-this text file contains the references that are used in our posture monitoring paper
-
+this text file contains the references that are used in our posture monitoring paper and is structured as such:
+-bpx- represents the xth base paper given here: https://www.notion.so/Technical-Paper-Review-Innovation-List-6cf34aff9f2546c5a91bd531fab431ce?pvs=4#28ae96842d9e4207ad33f662d8a4afd2 and the references mentioned between -bpx- and -bpx- are references that are used in the draft that are in the bp.
+-R- refers to random papers taken from net randomly.
+------Semi-Structured represents a combo of final and current draft--------
+------Structured draft represents the final draft to be put into the paper---
 
 -bp1-
 2. El-Sayed B, Farra N, Moacdieh N, Hajj H, Haidar R. A novel mobile wireless sensing system for real-time monitoring of posture and spine stress. *IEEE Trans Neural Syst Rehabil Eng* 2011; 13: 18-23.  
@@ -38,3 +41,72 @@ the Spine“, August 2016.
 2. Traeger, Adrian C. et al. “Diagnosis and management of low-back pain in primary care.” Canadian Medical Association Journal 189 (2017): E1386 - E1395.
 3. Lee, Mj. “Epidemiology of back pain.” (2012).
 4. Freburger, Janet K. et al. “The rising prevalence of chronic low back pain.” Archives of internal medicine 169 3 (2009): 251-8 .
+5. von Korff, Michael and Kathleen Saunders. “The Course of Back Pain in Primary Care.” Spine 21 (1996): 2833–2837.
+6. Makris, Una E. et al. “Restricting Back Pain and Subsequent Mobility Disability in Community‐Living Older Persons.” Journal of the American Geriatrics Society 62 (2014): 2142 - 2147.
+
+
+----------------------------------------Semi-Structured Draft--------------------------
+
+**-bp1-**  
+1. 2. El-Sayed B, Farra N, Moacdieh N, Hajj H, Haidar R. A novel mobile wireless sensing system for real-time monitoring of posture and spine stress. *IEEE Trans Neural Syst Rehabil Eng* 2011; 13: 18-23.  
+2. 3. Brigante CMN, Abbate N, Basile A. Towards Miniaturization of a MEMS-Based Wearable Motion Capture System. *IEEE Transact Industrial Electronics* 2011; 58: 246-278.  
+3. 4. Nemec D, Janota A, Hrubos M, Simak V. Intelligent Real-Time MEMS Sensor Fusion and Calibration. *IEEE Sensors J* 2016; 16: 1558-1748.  
+4. 5. Fachin F, Nikles SA, Dugundji JA, Wardle BL. Analytical extraction of residual stresses and gradients in MEMS structures with application to CMOS-layered materials. *J Micromech Microeng* 2011; 21: 095017.  
+5. 6. Donatell GJ, Meister DW, O’Brien JR, Thurlow JS, Webster JG, Salvi FJ. A simple device to monitor flexion and lateral bending of the lumbar spine. *IEEE Transact Neural Syst Rehab Eng* 2005; 13: 1534-4320.  
+6. 7. Garcia E, Ding H, Sarela A, Karunanithi M. Can a mobile phone be used as a pedometer in an outpatient cardiac rehabilitation program. *IEEE/ICME Int Confer Complex Med Eng (CME)* 2010.  
+
+**-bp2-**  
+7. 1. Statista (2017) Number of Mobile Phone Users Worldwide 2013-2019. Statista.  
+   https://www.statista.com/statistics/274774/forecast-of-mobile-phone-users-worldwide/  
+8. 3. Jung, S., Lee, N., Kang, K., Kim, K. and Lee, D. (2016) The Effect of Smartphone Usage Time on Posture and Respiratory Function. *Journal of Physical Therapy Science,* 28, 186-189.  
+9. 4. Riskind, J.H. and Gotay, C.C. (1982) Physical Posture: Could It Have Regulatory or Feedback Effects on Motivation and Emotion? *Motivation and Emotion,* 6, 273-298.  
+   https://doi.org/10.1007/BF00992249  
+
+**-bp4-**  
+10. 0. F. Tlili, R. Haddad, Y. Ouakrim, R. Bouallegue and N. Mezghani, "A Review on posture monitoring systems," 2018 International Conference on Smart Communications and Networking (SmartNets), Yasmine Hammamet, Tunisia, 2018, pp. 1-6, doi: 10.1109/SMARTNETS.2018.8707392.  
+11. 1. OLGA KHAZAN, “What Texting Does to the Spine,” The Atlantic, November 2014.  
+12. 2. American Academy of Orthopedic Surgeons, “Kyphosis (Roundback) of the Spine“, August 2016.  
+
+**-bp5-**  
+13. 1. Robertson, M.; Amick, B.C.; DeRango, K.; Rooney, T.; Bazzani, L.; Harrist, R.; Moore, A. The effects of an office ergonomics training and chair intervention on worker knowledge, behavior and musculoskeletal risk. *Appl. Ergon.* 2009, **40**, 124–135. [Google Scholar] [CrossRef] [PubMed]  
+14. 2. Choobineh, A.; Motamedzade, M.; Kazemi, M.; Moghimbeigi, A.; Heidari Pahlavian, A. The impact of ergonomics intervention on psychosocial factors and musculoskeletal symptoms among office workers. *Int. J. Ind. Ergon.* 2011, **41**, 671–676. [Google Scholar] [CrossRef]  
+15. 3. Goossens, R.H.M.; Netten, M.P.; Van Der Doelen, B. An office chair to influence the sitting behavior of office workers. *Work* 2012, **41**, 2086–2088. [Google Scholar] [PubMed]  
+16. 5. Taieb-Maimon, M.; Cwikel, J.; Shapira, B.; Orenstein, I. The effectiveness of a training method using self-modeling webcam photos for reducing musculoskeletal risk among office workers using computers. *Appl. Ergon.* 2012, **43**, 376–385. [Google Scholar] [CrossRef] [PubMed]  
+
+**-R-**  
+17. 1. Cădar, I. D. and Laura Pop. “Correlations between cervical spine posture and low back pain.” *HVM Bioflux* 7 (2015): 178-181.  
+18. 2. Traeger, Adrian C. et al. “Diagnosis and management of low-back pain in primary care.” *Canadian Medical Association Journal* 189 (2017): E1386 - E1395.  
+19. 3. Lee, Mj. “Epidemiology of back pain.” (2012).  
+20. 4. Freburger, Janet K. et al. “The rising prevalence of chronic low back pain.” *Archives of Internal Medicine* 169 3 (2009): 251-8.  
+21. 5. von Korff, Michael and Kathleen Saunders. “The Course of Back Pain in Primary Care.” *Spine* 21 (1996): 2833–2837.  
+22. 6. Makris, Una E. et al. “Restricting Back Pain and Subsequent Mobility Disability in Community‐Living Older Persons.” *Journal of the American Geriatrics Society* 62 (2014): 2142 - 2147.  
+
+----------------------------------Structured Draft -------------------------------------
+
+[1] El-Sayed B, Farra N, Moacdieh N, Hajj H, Haidar R. A novel mobile wireless sensing system for real-time monitoring of posture and spine stress. *IEEE Trans Neural Syst Rehabil Eng* 2011; 13: 18-23.  
+[2] Brigante CMN, Abbate N, Basile A. Towards Miniaturization of a MEMS-Based Wearable Motion Capture System. *IEEE Transact Industrial Electronics* 2011; 58: 246-278.  
+[3] Nemec D, Janota A, Hrubos M, Simak V. Intelligent Real-Time MEMS Sensor Fusion and Calibration. *IEEE Sensors J* 2016; 16: 1558-1748.  
+[4] Fachin F, Nikles SA, Dugundji JA, Wardle BL. Analytical extraction of residual stresses and gradients in MEMS structures with application to CMOS-layered materials. *J Micromech Microeng* 2011; 21: 095017.  
+[5] Donatell GJ, Meister DW, O’Brien JR, Thurlow JS, Webster JG, Salvi FJ. A simple device to monitor flexion and lateral bending of the lumbar spine. *IEEE Transact Neural Syst Rehab Eng* 2005; 13: 1534-4320.  
+[6] Garcia E, Ding H, Sarela A, Karunanithi M. Can a mobile phone be used as a pedometer in an outpatient cardiac rehabilitation program. *IEEE/ICME Int Confer Complex Med Eng (CME)* 2010.  
+[7] Statista (2017) Number of Mobile Phone Users Worldwide 2013-2019. Statista.  
+   https://www.statista.com/statistics/274774/forecast-of-mobile-phone-users-worldwide/  
+[8] Jung, S., Lee, N., Kang, K., Kim, K. and Lee, D. (2016) The Effect of Smartphone Usage Time on Posture and Respiratory Function. *Journal of Physical Therapy Science,* 28, 186-189.  
+[9] Riskind, J.H. and Gotay, C.C. (1982) Physical Posture: Could It Have Regulatory or Feedback Effects on Motivation and Emotion? *Motivation and Emotion,* 6, 273-298.  
+   https://doi.org/10.1007/BF00992249  
+[10] F. Tlili, R. Haddad, Y. Ouakrim, R. Bouallegue and N. Mezghani, "A Review on posture monitoring systems," 2018 International Conference on Smart Communications and Networking (SmartNets), Yasmine Hammamet, Tunisia, 2018, pp. 1-6, doi: 10.1109/SMARTNETS.2018.8707392.  
+[11] OLGA KHAZAN, “What Texting Does to the Spine,” The Atlantic, November 2014.  
+[12] American Academy of Orthopedic Surgeons, “Kyphosis (Roundback) of the Spine“, August 2016.  
+[13] Robertson, M.; Amick, B.C.; DeRango, K.; Rooney, T.; Bazzani, L.; Harrist, R.; Moore, A. The effects of an office ergonomics training and chair intervention on worker knowledge, behavior and musculoskeletal risk. *Appl. Ergon.* 2009, **40**, 124–135.  
+[14] Choobineh, A.; Motamedzade, M.; Kazemi, M.; Moghimbeigi, A.; Heidari Pahlavian, A. The impact of ergonomics intervention on psychosocial factors and musculoskeletal symptoms among office workers. *Int. J. Ind. Ergon.* 2011, **41**, 671–676.  
+[15] Goossens, R.H.M.; Netten, M.P.; Van Der Doelen, B. An office chair to influence the sitting behavior of office workers. *Work* 2012, **41**, 2086–2088.  
+[16] Taieb-Maimon, M.; Cwikel, J.; Shapira, B.; Orenstein, I. The effectiveness of a training method using self-modeling webcam photos for reducing musculoskeletal risk among office workers using computers. *Appl. Ergon.* 2012, **43**, 376–385.  
+[17] Cădar, I. D. and Laura Pop. “Correlations between cervical spine posture and low back pain.” *HVM Bioflux* 7 (2015): 178-181.  
+[18] Traeger, Adrian C. et al. “Diagnosis and management of low-back pain in primary care.” *Canadian Medical Association Journal* 189 (2017): E1386 - E1395.  
+[19] Lee, Mj. “Epidemiology of back pain.” (2012).  
+[20] Freburger, Janet K. et al. “The rising prevalence of chronic low back pain.” *Archives of Internal Medicine* 169 3 (2009): 251-8.  
+[21] von Korff, Michael and Kathleen Saunders. “The Course of Back Pain in Primary Care.” *Spine* 21 (1996): 2833–2837.  
+[22] Makris, Una E. et al. “Restricting Back Pain and Subsequent Mobility Disability in Community‐Living Older Persons.” *Journal of the American Geriatrics Society* 62 (2014): 2142 - 2147.  
+
+
+
