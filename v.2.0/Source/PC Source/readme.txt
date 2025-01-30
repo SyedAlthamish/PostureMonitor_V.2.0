@@ -1,2 +1,2 @@
-- PC Source is a file containing source code that runs in the PC
+- PC Source is a file containing source code that runs in the PC(The ML running PC)
 - each file provides a different purpose detailed in their respective documentation.

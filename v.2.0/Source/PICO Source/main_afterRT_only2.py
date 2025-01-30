@@ -1,12 +1,12 @@
 #Scrap file
 '''
-Takes only the 2 sensors for main data acq
-File Name: DAcq_run.py
+Takes only the 2 sensors for main data acq and outputs 22 values of features via text from Pico through Wire to PC
+File Name: main_afterRT_only2.py
 
-Purpose: This code runs the Data acquisiton protocol
+Purpose: This code runs the Data acquisiton protocol for 2 sensors and 22(11+11) features with timestamps
 
 Functional Description:-
-    1. once powered, the user is given 10 seconds to prepare himself for the calibration phase
+    1. once powered, the user is given time to prepare himself for the calibration phase
     2. The calibration performance check also occurs
     3. the values are being printed with timestamps and the timestamps must be noted when changing and during postures
     
@@ -65,7 +65,7 @@ while True:
     tiltlist=[tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68,tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69]
     datalist=[data_68,data_69]								#all 3 sensor's data are grouped together into a list correspondent to their sensor no.
     
-    printall_Rtime6Comp(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no ; func located in lib_misc.py
+    printall(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no ; func located in lib_misc.py
     #estimated sampling time is 0.22 sec or ~50Hz upon observing dt
 
 

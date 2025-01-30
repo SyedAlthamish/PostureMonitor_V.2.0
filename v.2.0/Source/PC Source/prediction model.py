@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-File to input a Pickle classifier file, continuous data from a serial port and output a classification based on o/p
+File to input a Pickle classifier file, continuous data from a serial port and output a classification based on the i/p
 """
 
 import serial

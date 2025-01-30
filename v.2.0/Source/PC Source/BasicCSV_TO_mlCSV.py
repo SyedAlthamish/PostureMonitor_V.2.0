@@ -1,7 +1,7 @@
 '''
-this file is used to take an input dataset from the 
+this file is used to take an input raw text document dataset from the 
 DAcq_run.py file and convert into a ML ready csv file
-from sensor-1-1 to postures columns
+i.e. to produce structured and labelled dataset with columns from 'sensor-1-1' to 'sensor-3-11'&'postures' from raw text output of  pico
 '''
 
 import pandas as pd

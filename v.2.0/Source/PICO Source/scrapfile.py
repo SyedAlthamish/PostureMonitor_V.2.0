@@ -1,16 +1,6 @@
 #Scrap file
 '''
-File Name: DAcq_run.py
-
-Purpose: This code runs the Data acquisiton protocol
-
-Functional Description:-
-    1. once powered, the user is given 10 seconds to prepare himself for the calibration phase
-    2. The calibration performance check also occurs
-    3. the values are being printed with timestamps and the timestamps must be noted when changing and during postures
-    
-Note:
-    - The gbz values or gyro_biased_z values have an abnormality where sudden unpredictable spikes from ~0 to ~ +-3.8 occurs. The matter hasn't been resolved.
+This File is a Trash File inteneded for experimentation purposes
 '''
 
 #importion of libraries

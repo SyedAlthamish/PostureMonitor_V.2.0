@@ -1,2 +1,3 @@
 - PICO Source is a file containing source code that runs in the PICO microcontroller. 
-- The additional files contains code that aren't necessary but helpful
+- The additional files contains code that aren't necessary but helpful when needed.
+- the purpose of each file is depicted within its documentation present in each file
