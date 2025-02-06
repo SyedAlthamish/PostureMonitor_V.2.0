@@ -1,5 +1,5 @@
 DATASETS DETAILS
-
+{S.no - Name - (start of Name from total sample list - end of Name from total sample list}
 1—Syed.4—(2-6840)
 2—Syed.5—(6841-12725)
 3—Mi—(12726-20001)

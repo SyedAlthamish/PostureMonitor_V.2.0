@@ -11,4 +11,8 @@ mi- 158cm 82kg f 47y
 my- 162cm 44kg f 13y
 he- 158cm 54kg f 18y
 
-Datasets META DATA .txt file contains data about each of the 12 raw datasets
+"Datasets META DATA .txt" file contains data about each of the 12 raw datasets
+
+"format_timestamps.txt" contains the format for the timetamps to be followed
+
+the remaining files are as is

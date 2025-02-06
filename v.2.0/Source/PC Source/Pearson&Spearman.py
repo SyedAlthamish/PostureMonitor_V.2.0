@@ -1,6 +1,6 @@
 '''{
 File Desc: This is a basic draft file where relevancy of the features from the posture monitoring dataset 
-           to its corresponding labels is found, specifically through the ANOVA test, and other relevant data
+           to its corresponding labels is found, specifically through the Pearson&Spearman Coefficients test, and other relevant data
            including plotting it.
 }'''
 

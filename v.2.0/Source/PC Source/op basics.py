@@ -1,4 +1,4 @@
-"this is a file to show a basic display of classified posture from the posture monitoring system"
+"this is a file to show a representative basic display of classified posture from the posture monitoring system to run on PC"
 
 import time
 

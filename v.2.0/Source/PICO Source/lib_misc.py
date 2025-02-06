@@ -13,10 +13,13 @@ import utime
 import sys
 
 '''
+{
 Function: to print data in the following format of output string and input argument for real time integration
-    Input: datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}} ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
+    Input:
+        datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}} ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
     Output: prints as ['accx1','accy1','accz1','accx2','accy2','accz2',accx3','accy3','accz3','gyrox1','gyroy1','gyroz1','gyrox2','gyroy2','gyroz2','gyrox3','gyroy3','gyroz3', 'biased_gyrox1','biased_gyroy1','biased_gyroz1','biased_gyrox2','biased_gyroy2','biased_gyroz2','biased_gyrox3','biased_gyroy3',
                         'biased_gyroz3']
+}                
 '''
 def printall_Rtime(time_stamp,datalist,tiltlist,dt):
     
@@ -35,14 +38,14 @@ def printall_Rtime(time_stamp,datalist,tiltlist,dt):
         print(f,end="")
     print("\n",end="n")
     
-    
 '''
 {
 Function: to print data in the following format of output string and input argument for real time integration with ML model running in PC
     Input: time_stamp,datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}},tiltlist,dt ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
-    Output: prints as 68comp,68compy,68compz,69compx,69compy,69comp
+    Output: prints as ['accx1','accy1','accz1','accx2','accy2','accz2',accx3','accy3','accz3','gyrox1','gyroy1','gyroz1','gyrox2','gyroy2','gyroz2','gyrox3','gyroy3','gyroz3', 'biased_gyrox1','biased_gyroy1','biased_gyroz1','biased_gyrox2','biased_gyroy2','biased_gyroz2','biased_gyrox3','biased_gyroy3',
+                        'biased_gyroz3']
 }                
-'''    
+'''
 def printall_Rtime6Comp(time_stamp,datalist,tiltlist,dt):
     
     '''
@@ -64,13 +67,23 @@ def printall_Rtime6Comp(time_stamp,datalist,tiltlist,dt):
     printlist.extend(tiltlist[5:8])
     for i in printlist:
         print(i,end='    ')
-    print('')
+    print()
+    #print('Postural State: Uncalibrated')
     #print(tiltlist)
 
 '''
 Function: to print data in the following format of output string and input argument
-    Input: get_timestamp() output[string: MM.SS] , datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}} ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
-    Output: prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no for 3 sensors
+    Input:
+            1. time_stamp= {get_timestamp() output[string: MM.SS]}
+            2. datalist= {'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}}
+            3. Tiltlist=[tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68,tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69]
+            4. dt = integer/float
+    Output:
+            Prints as
+                   "time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,tilt_accx,tilt_accy,dt,sensor_no1
+                    time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,tilt_accx,tilt_accy,dt,sensor_no2
+                    time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,tilt_accx,tilt_accy,dt,sensor_no3"
+            for 3 sensors.
 '''
 def printall(time_stamp,datalist,tiltlist,dt):
     datatypes=['accel','gyro_biased']			#the different indexes within datalist
@@ -106,6 +119,7 @@ Output: MM.SS in string format
 def get_timestamp():
     current_time = utime.localtime()								# Get the current time
     return "{:02}.{:02} ".format(current_time[4], current_time[5])	# Format the time as [MM.SS]
+
 
 
 
