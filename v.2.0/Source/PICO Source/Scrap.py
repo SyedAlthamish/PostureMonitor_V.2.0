@@ -36,8 +36,8 @@ init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
 #utime.sleep(7)
 
 #calibration routine for gyros
-#calibrate_gyro(i2c,0x68,1)
-#calibrate_gyro(i2c,0x69,2)
+calibrate_gyro(i2c,0x68,1)
+calibrate_gyro(i2c,0x69,2)
 #calibrate_gyro(i2c1,0x68,3)
  
 #calibration performance check for gyros

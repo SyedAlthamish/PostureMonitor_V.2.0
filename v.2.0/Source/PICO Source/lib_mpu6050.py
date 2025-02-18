@@ -13,9 +13,10 @@ GYRO_XOUT_H = 0x43
 angleX=[0,0,0]
 angleY=[0,0,0]
 angleZ=[0,0,0]
-avgg_z=[0,0,0]
-avgg_x=[0,0,0]
-avgg_y=[0,0,0]
+
+avgg_z=[-3.572,-0.183,0]
+avgg_x=[-3.619,-1.090,0]
+avgg_y=[0.902,0.699,0]
 avga_x=[0,0,0]
 avga_y=[0,0,0]
 avga_z=[0,0,0]
@@ -84,7 +85,7 @@ def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
 
     print("Gyroscope calibration complete.",avgg_x[sensor],avgg_y[sensor],avgg_z[sensor])
     #print("Average values: X: {:.2f}, Y: {:.2f}, Z: {:.2f}".format(avgg_x, avgg_y, avg_z))
-    #return avg_x, avg_y, avg_z
+    return avgg_x[sensor],avgg_y[sensor],avgg_z[sensor]
 
 def calibrate_gyroonlyZ(i2c, address,sensor, num_samples=1000):
     print("Calibrating gyroscope...")
