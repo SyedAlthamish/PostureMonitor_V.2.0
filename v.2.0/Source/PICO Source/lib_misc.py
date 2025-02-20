@@ -71,6 +71,44 @@ def printall_Rtime6Comp(time_stamp,datalist,tiltlist,dt):
     #print('Postural State: Uncalibrated')
     #print(tiltlist)
 
+
+
+'''
+{
+Function: to print data in the following format of output string and input argument for real time integration with ML model running in PC
+    Input: time_stamp,datalist={'accel'{'x','y','z'},'gyro'{'x','y','z'},'gyro_biased'{'x','y','z'}},tiltlist,dt ; this is the format of datalist returned from function [get_mpu6050_comprehensive_data(...),get_mpu6050_comprehensive_data(...),...]
+    Output: prints as ['accx1','accy1','accz1','accx2','accy2','accz2',accx3','accy3','accz3','gyrox1','gyroy1','gyroz1','gyrox2','gyroy2','gyroz2','gyrox3','gyroy3','gyroz3', 'biased_gyrox1','biased_gyroy1','biased_gyroz1','biased_gyrox2','biased_gyroy2','biased_gyroz2','biased_gyrox3','biased_gyroy3',
+                        'biased_gyroz3']
+}                
+'''
+def printall_Gyro(time_stamp,datalist_fixed,tiltlist,dt):
+    
+    
+    datatypes=['gyro_biased','gyro_biased_fixed']			#the different indexes within datalist
+    axes=['x','y','z']
+    printlist=[]
+    for j in datatypes:
+        for i in range(0,len(datalist_fixed)):
+            for k in axes:
+                    datapoint=datalist_fixed[i][j][k]
+                    #print(str(datapoint),end=" ")
+                    printlist.append(str(datapoint)+"    ")
+    #print(printlist)
+    for f in (printlist):
+        print(f,end="")
+    print("\n",end="")
+    '''
+    gyro_beg_index = 18
+    printlist=tiltlist[0:3]
+    printlist.extend(tiltlist[5:8])
+    for i in printlist[gyro_beg_index:]:
+        print(i,end='    ')
+    print()
+    #print('Postural State: Uncalibrated')
+    #print(tiltlist)
+    '''
+
+
 '''
 Function: to print data in the following format of output string and input argument
     Input:

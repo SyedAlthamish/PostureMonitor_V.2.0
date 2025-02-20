@@ -9,16 +9,14 @@ Functional Description:-
     1. once powered, the user is given time to prepare himself for the calibration phase
     2. The calibration performance check also occurs
     3. the values are being printed with timestamps and the timestamps must be noted when changing and during postures
-    
-Note:
-    - The gbz values or gyro_biased_z values have an abnormality where sudden unpredictable spikes from ~0 to ~ +-3.8 occurs. The matter hasn't been resolved.
+
 '''
 
 #importion of libraries
 from machine import Pin, I2C																				#for Pin Manipulation, i2c communication
 import utime																								#for delay between each loop
 import math																									#for tilt calculation from each sensor
-from lib_mpu6050 import init_mpu6050, get_mpu6050_data, calibrate_gyro, calci_tilt_angles,get_mpu6050_comprehensive_data,calibrate_checkgyro		#for individual user-defined functions
+from lib_mpu6050 import *
 from lib_misc import *
 
 #The setting of MPU6050 sensor's addresses
@@ -41,16 +39,16 @@ init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
 #calibrate_gyro(i2c1,0x68,3)
  
 #calibration performance check for gyros
-calibrate_checkgyro(i2c,0x68,1)
-calibrate_checkgyro(i2c,0x69,2)
+#calibrate_checkgyro(i2c,0x68,1)
+#calibrate_checkgyro(i2c,0x69,2)
 #calibrate_checkgyro(i2c1,0x68,3)
 
 
 prev_time = utime.ticks_ms()							#initializing time parameteric for integrating gyro data
 #main
 while True:
-    data_68 = get_mpu6050_comprehensive_data(i2c, 0x68,1)				#a dict with all mpu related data from 1sti2c0 sensor
-    data_69 = get_mpu6050_comprehensive_data(i2c, 0x69,2)  			#a dict with all mpu related data from 2ndi2c0 sensor
+    data_68 = get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, 0x68,1)				#a dict with all mpu related data from 1sti2c0 sensor
+    data_69 = get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, 0x69,2)  			#a dict with all mpu related data from 2ndi2c0 sensor
     #data_681 = get_mpu6050_comprehensive_data(i2c1, 0x68,3)			#a dict with all mpu related data from 1sti2c1 sensor
     
     curr_time = utime.ticks_ms()

@@ -44,8 +44,6 @@ def variance(data):
     squared_diffs = [(x - mean) ** 2 for x in data]
     return sum(squared_diffs) / (n - 1)  # Sample variance (ddof=1)
 
-
-
 def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
     print("Calibrating gyroscope...")
     sumg_x = 0
@@ -101,7 +99,6 @@ def calibrate_gyroonlyZ(i2c, address,sensor, num_samples=1000):
     avgg_z[sensor] = sumg_z / num_samples
 
     print("Gyroscope Z-axis calibration complete.")
-
 
 def calci_tilt_angles(data,sensor_no,dtime,alpha=0.98):
     x, y, z = data['accel']['x'], data['accel']['y'], data['accel']['z']
@@ -180,6 +177,12 @@ def get_mpu6050_comprehensive_data(i2c, address,sensor):
     
     
     global avgg_z,avgg_x,avgg_y
+    
+    gyro_bx = gyro_x-avgg_x[sensor-1]
+    gyro_by = gyro_y-avgg_y[sensor-1]
+    gyro_bz = gyro_z-avgg_z[sensor-1]
+    
+     
     #print(avgg_z[sensor])
     return {
         'accel': {
@@ -193,11 +196,96 @@ def get_mpu6050_comprehensive_data(i2c, address,sensor):
             'z': gyro_z,
         },
         'gyro_biased':{
-            'x': gyro_x-avgg_x[sensor-1],
-            'y': gyro_y-avgg_y[sensor-1],
-            'z': gyro_z-avgg_z[sensor-1],
+            'x': gyro_bx,
+            'y': gyro_by,
+            'z': gyro_bz,
         }   
     }
+
+tri_sample_data = [     # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - prev
+                        # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - current  
+                        # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - new
+                        # for all 3 sensors
+    # First sensor samples
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],  
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    # Second sensors samples
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    # Third sensor samples
+    [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+]
+prev_index = 0
+curr_index = 1
+new_index = 2
+gyrob_index_start = 6
+gyrob_index_end = 8
+def get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, address,sensor):
+    #temp = read_raw_data(i2c, TEMP_OUT_H, address) / 340.0 + 36.53
+    sensor_index = sensor - 1 
+    accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0
+    accel_y = read_raw_data(i2c, ACCEL_XOUT_H + 2, address) / 16384.0
+    accel_z = read_raw_data(i2c, ACCEL_XOUT_H + 4, address) / 16384.0
+    gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5#131.0
+    gyro_y = read_raw_data(i2c, GYRO_XOUT_H + 2, address) / 65.5
+    gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5
+  
+    global avgg_z,avgg_x,avgg_y
+    
+    gyro_bx = gyro_x-avgg_x[sensor_index]
+    gyro_by = gyro_y-avgg_y[sensor_index]
+    gyro_bz = gyro_z-avgg_z[sensor_index]
+    
+    tri_sample_data[sensor_index][new_index] = [accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,gyro_bx,gyro_by,gyro_bz]
+    
+    for i in range (gyrob_index_start,gyrob_index_end + 1): #cycling through all axes
+        if math.floor(abs(tri_sample_data[sensor_index][new_index][i])) == 0 and math.floor(abs(tri_sample_data[sensor_index][prev_index][i])) == 0 and math.floor(abs(tri_sample_data[sensor_index][curr_index][i])) != 0:
+            tri_sample_data[sensor_index][curr_index][i] = 0
+    
+    gyro_bx_f = tri_sample_data[sensor_index][curr_index][gyrob_index_start]
+    gyro_by_f = tri_sample_data[sensor_index][curr_index][gyrob_index_start+1]
+    gyro_bz_f = tri_sample_data[sensor_index][curr_index][gyrob_index_end]    
+    
+    tri_sample_data[sensor_index][prev_index] =  tri_sample_data[sensor_index][curr_index]
+    tri_sample_data[sensor_index][curr_index] =  tri_sample_data[sensor_index][new_index]
+    
+    
+    
+    
+    #print(avgg_z[sensor])
+    return {
+        'accel': {
+            'x': accel_x, #w/out offsets changes
+            'y': accel_y,
+            'z': accel_z,
+        },
+        'gyro': {
+            'x': gyro_x,
+            'y': gyro_y,
+            'z': gyro_z,
+        },
+        'gyro_biased':{
+            'x': gyro_bx,
+            'y': gyro_by,
+            'z': gyro_bz,
+        },
+        'gyro_biased_fixed':{
+            'x': gyro_bx_f,
+            'y': gyro_by_f,
+            'z': gyro_bz_f,
+        }   
+    }
+
 
 def calibrate_checkgyro(i2c,address,sensor_no,num_samples=200):#1000
     gyroxlist=[]
