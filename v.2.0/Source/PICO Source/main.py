@@ -44,6 +44,14 @@ init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
 #calibrate_checkgyro(i2c1,0x68,3)
 
 
+while True:
+    read_data = sys.stdin.read(1)  # Read 1 byte at a time (prevents blocking)
+    if read_data == 'y':
+        break
+    print("Waiting for Permission")
+
+print("processBegin")
+
 prev_time = utime.ticks_ms()							#initializing time parameteric for integrating gyro data
 #main
 while True:
