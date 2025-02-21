@@ -124,7 +124,7 @@ Function: to print data in the following format of output string and input argum
             for 3 sensors.
 '''
 def printall(time_stamp,datalist,tiltlist,dt):
-    datatypes=['accel','gyro_biased']			#the different indexes within datalist
+    datatypes=['accel','gyro_biased_fixed']			#the different indexes within datalist
     axes=['x','y','z']
     for i in range(0,len(datalist)):
         print(time_stamp,end=" ")

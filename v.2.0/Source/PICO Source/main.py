@@ -1,7 +1,7 @@
 #Scrap file
 '''
 Takes only the 2 sensors for main data acq and outputs 22 values of features via text from Pico through Wire to PC
-File Name: main_afterRT_only2.py
+File Name: main.py
 
 Purpose: This code runs the Data acquisiton protocol for 2 sensors and 22(11+11) features with timestamps
 
@@ -45,10 +45,10 @@ init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
 
 
 while True:
-    read_data = sys.stdin.read(1)  # Read 1 byte at a time (prevents blocking)
+    read_data = sys.stdin.read(1)  # hangs here till a byte is read
     if read_data == 'y':
         break
-    print("Waiting for Permission")
+    print("Waiting for Permission(y/n)")
 
 print("processBegin")
 

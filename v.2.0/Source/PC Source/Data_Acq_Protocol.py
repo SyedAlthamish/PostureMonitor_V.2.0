@@ -170,7 +170,12 @@ print("process end")
 # %% ########################## Raw 2 ML-Ready Dataset ###############################y
 print(check_data)
 data = main_data
-
-with open("output.txt", "w") as file:  # 'w' mode overwrites existing content
+file_name = input("Enter the Data_File Name: ")
+with open(file_name, "w") as file:  # 'w' mode overwrites existing content
     file.write(data)
+    
+import subprocess
+
+subprocess.run(["python", r"Source/PC Source/v.3.0Raw CSV to ML-Ready CSV.py"])  # For Windows/Linux/Mac
+
 
