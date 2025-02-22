@@ -50,8 +50,6 @@ while True:
         break
     print("Waiting for Permission(y/n)")
 
-print("processBegin")
-
 prev_time = utime.ticks_ms()							#initializing time parameteric for integrating gyro data
 #main
 while True:

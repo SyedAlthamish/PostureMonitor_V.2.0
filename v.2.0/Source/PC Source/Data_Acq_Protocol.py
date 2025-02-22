@@ -28,9 +28,20 @@ import matplotlib.image as mpimg
 import time
 import serial
 import os
+from pathlib import Path
+
+image_folder = (
+    Path(r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor")
+    / "PostureMonitor_V.2.0"
+    / "v.2.0"
+    / "Documents & Others"
+    / "Others"
+    / "Work_Pictures"
+    / "Data_Acquisiton v.3.0 postures copy"
+)
 
 # Folder containing images
-image_folder = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\Documents & Others\Others\Work_Pictures\Data_Acquisiton v.3.0 postures copy"
+#image_folder = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\Documents & Others\Others\Work_Pictures\Data_Acquisiton v.3.0 postures"
 
 # List of image filenames
 image_files = [f for f in os.listdir(image_folder) if f.endswith(('.png', '.jpg', '.jpeg'))]
@@ -51,8 +62,6 @@ def read_serial_data():
         if current_sample:  # Avoid appending empty reads
             amended_sample = "\n" + current_sample + "    " + posture  # Fast string concatenation
             main_data += amended_sample  # Append to the existing string
-        else:
-            print("empty")
 
 def countdown(duration, message):
     """ Function to run a countdown timer """
@@ -102,6 +111,11 @@ def display_images_with_timer(image_files):
     current_img = Image.open(current_img_path)
 
     plt.figure(figsize=(6, 6))  # Adjust size as needed
+    mng = plt.get_current_fig_manager()
+
+    # Set window position (adjust values based on your screen resolution)
+    mng.window.geometry("+600+100")  # Move to the right (X=1200, Y=100)
+    
     plt.imshow(current_img)
     plt.axis("off")
     plt.title(f"Starting with: {image_files[0]}")
@@ -168,13 +182,17 @@ display_images_with_timer(image_files)
 print("process end")
 
 # %% ########################## Raw 2 ML-Ready Dataset ###############################y
-print(check_data)
-data = main_data
-file_name = input("Enter the Data_File Name: ")
+
+file_name = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\v.3.0 Raw\\" + input("Enter the Data_File Name: ") +".txt"
 with open(file_name, "w") as file:  # 'w' mode overwrites existing content
-    file.write(data)
-    
+    file.write(main_data)
+
+
 import subprocess
+
+#occasionally the saved raw text may have error at line 98 when running
+#the following code, in such a case, manually remove the line and run the following 
+#program independently
 
 subprocess.run(["python", r"Source/PC Source/v.3.0Raw CSV to ML-Ready CSV.py"])  # For Windows/Linux/Mac
 

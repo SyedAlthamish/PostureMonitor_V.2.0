@@ -7,7 +7,8 @@ i.e. to produce structured and labelled dataset with columns from 'xa_S1' to 'ti
 import pandas as pd
 
 # Load your data
-file_path = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\output.txt"
+file_name = input("Enter the FileName: ")
+file_path = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\v.3.0 Raw\\" + file_name +".txt"
 df = pd.read_csv(file_path, header=None, delim_whitespace=True)
 no_of_sensors = 2
 
@@ -55,17 +56,30 @@ cleaned_df = combined_df
 columns_to_drop = [
     'time_stamp_S1', 'dt_S1', "State_S1",
     'sensor_no_S1', 'time_stamp_S2', 'dt_S2', 'sensor_no_S2'
-    ]
+]
 
 # Drop the specified columns
 cleaned_df.drop(columns=columns_to_drop, axis=1, inplace=True)
 
-print(cleaned_df.head()) 
+cleaned_with_rows_df = cleaned_df
+
+# Remove rows where "State_S2" is "unknown" or "transient"
+cleaned_df = cleaned_df.loc[~cleaned_df["State_S2"].isin(["Unknown", "Transition"])]
+# Rename the last column
+cleaned_df.rename(columns={cleaned_df.columns[-1]: "Posture"}, inplace=True)
+
+# Print first few rows to check
+print(cleaned_df.head())
 
 
 #----------------------------------------creating the ML ready CSV file------------------------------------------------
 
-
+ML_path = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\v.3.0 ML-Ready\\" + file_name
 finaldf=cleaned_df    
-finaldf.to_csv("ML_Ready_output.csv", index=False)
-print("Combined rows saved to 'ML_Ready_output.csv'")
+finaldf.to_csv(ML_path, index=False)
+print(f"Combined rows saved to {ML_path}")
+
+ML_path = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\v.3.0 ML-Ready-with_rows\\" + file_name
+finaldf=cleaned_with_rows_df    
+finaldf.to_csv(ML_path, index=False)
+print(f"Combined rows saved to {ML_path}")

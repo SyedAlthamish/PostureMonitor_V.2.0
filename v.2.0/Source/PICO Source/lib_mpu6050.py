@@ -105,6 +105,7 @@ def calci_tilt_angles(data,sensor_no,dtime,alpha=0.98):
  
     angleAccX = math.atan2(y, math.sqrt(x * x + z * z)) * 180 / math.pi
     angleAccY = - math.atan2(x, math.sqrt(y * y + z * z)) * 180 / math.pi# minus inside bracker
+    angleAccZ = - math.atan2(math.sqrt(y * y + x * x),z ) * 180 / math.pi# minus inside bracker
     global angleX
     global angleY
     global angleZ
@@ -113,7 +114,9 @@ def calci_tilt_angles(data,sensor_no,dtime,alpha=0.98):
     
     angleX[sensor_index]= wrap(alpha*(angleAccX + wrap(angleX[sensor_index] + data['gyro_biased_fixed']['x']*dtime - angleAccX,180)) + (1.0-alpha)*angleAccX,180)				#the explanation is given below
     angleY[sensor_index] = wrap(alpha * (angleAccY + wrap(angleY[sensor_index] + data['gyro_biased_fixed']['y'] * dtime - angleAccY, 180)) + (1.0 - alpha) * angleAccY, 180)
-    angleZ[sensor_index] = wrap(angleZ[sensor_index] + data['gyro_biased_fixed']['z'] * dtime, 180)
+    #angleZ[sensor_index] = wrap(angleZ[sensor_index] + data['gyro_biased_fixed']['z'] * dtime, 180)
+    angleZ[sensor_index] = wrap(alpha * (angleAccZ + wrap(angleZ[sensor_index] + data['gyro_biased_fixed']['z'] * dtime - angleAccZ, 180)) + (1.0 - alpha) * angleAccZ, 180)
+
  
     return angleX[sensor_index], angleY[sensor_index], angleZ[sensor_index],angleAccX,angleAccY
 
@@ -248,10 +251,28 @@ def get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, address,sensor):
     
     tri_sample_data[sensor_index][new_index] = [accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,gyro_bx,gyro_by,gyro_bz]
     
-    for i in range (gyrob_index_start,gyrob_index_end + 1): #cycling through all axes
-        if math.floor(abs(tri_sample_data[sensor_index][new_index][i])) == 0 and math.floor(abs(tri_sample_data[sensor_index][prev_index][i])) == 0 and math.floor(abs(tri_sample_data[sensor_index][curr_index][i])) != 0:
-            tri_sample_data[sensor_index][curr_index][i] = 0
+    def opposite_signs(a, b):
+        return (a * b) < 0  # Works for int and float
+
     
+    for i in range (gyrob_index_start,gyrob_index_end + 1): #cycling through all axes
+        new_val = tri_sample_data[sensor_index][new_index][i]
+        curr_val = tri_sample_data[sensor_index][curr_index][i]
+        prev_val = tri_sample_data[sensor_index][prev_index][i]
+        
+        if not (math.floor(abs(new_val)) == 0 and math.floor(abs(prev_val)) == 0 and math.floor(abs(curr_val)) == 0): 
+            # to 0 the single peak values
+            if math.floor(abs(new_val)) == 0 and math.floor(abs(prev_val)) == 0 and math.floor(abs(curr_val)) != 0:
+                tri_sample_data[sensor_index][curr_index][i] = 0
+            
+            # to 0 the mirror peak
+            elif math.floor(abs(prev_val)) == 0 and opposite_signs(curr_val,new_val) and abs((abs(curr_val)) - (abs(new_val))) < 0.4  :
+                tri_sample_data[sensor_index][curr_index][i] = 0
+            
+            # to 0 the double peak sync values
+            elif math.floor(abs(prev_val)) == 0 and abs((abs(curr_val)) - (abs(new_val))) < 0.095  :
+                tri_sample_data[sensor_index][curr_index][i] = 0
+        
     gyro_bx_f = tri_sample_data[sensor_index][curr_index][gyrob_index_start]
     gyro_by_f = tri_sample_data[sensor_index][curr_index][gyrob_index_start+1]
     gyro_bz_f = tri_sample_data[sensor_index][curr_index][gyrob_index_end]    
