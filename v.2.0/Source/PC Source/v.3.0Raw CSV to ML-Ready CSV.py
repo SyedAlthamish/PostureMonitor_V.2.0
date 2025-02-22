@@ -67,6 +67,10 @@ cleaned_with_rows_df = cleaned_df
 cleaned_df = cleaned_df.loc[~cleaned_df["State_S2"].isin(["Unknown", "Transition"])]
 # Rename the last column
 cleaned_df.rename(columns={cleaned_df.columns[-1]: "Posture"}, inplace=True)
+# Remove the last 4 characters from the "Posture" column
+cleaned_df["Posture"] = cleaned_df["Posture"].astype(str).str.slice(stop=-4)
+
+
 
 # Print first few rows to check
 print(cleaned_df.head())
