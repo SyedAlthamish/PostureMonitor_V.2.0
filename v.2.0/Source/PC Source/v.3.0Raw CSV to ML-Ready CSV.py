@@ -38,7 +38,7 @@ combined_df = pd.DataFrame(combined_rows)
 df_column_names = [
     "time_stamp", "xa", "ya", "za", "xgb", "ybg", "zbg",
     "tilt_x", "tilt_y", "tilt_z", "tilt_accx", "tilt_accy",
-    "dt", "sensor_no","State"
+    "tilt_accz","dt", "sensor_no","State"
 ]
 
 # Generate column names for two sensors

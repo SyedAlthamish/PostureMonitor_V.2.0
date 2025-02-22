@@ -37,7 +37,7 @@ image_folder = (
     / "Documents & Others"
     / "Others"
     / "Work_Pictures"
-    / "Data_Acquisiton v.3.0 postures copy"
+    / "Data_Acquisiton v.3.0 postures"
 )
 
 # Folder containing images

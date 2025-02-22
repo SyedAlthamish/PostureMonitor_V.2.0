@@ -118,7 +118,7 @@ def calci_tilt_angles(data,sensor_no,dtime,alpha=0.98):
     angleZ[sensor_index] = wrap(alpha * (angleAccZ + wrap(angleZ[sensor_index] + data['gyro_biased_fixed']['z'] * dtime - angleAccZ, 180)) + (1.0 - alpha) * angleAccZ, 180)
 
  
-    return angleX[sensor_index], angleY[sensor_index], angleZ[sensor_index],angleAccX,angleAccY
+    return angleX[sensor_index], angleY[sensor_index], angleZ[sensor_index],angleAccX,angleAccY,angleAccZ
 
 def calci_tilt_accangles(data, dtime, sensor, alpha=0.98):
     x, y, z = data['accel']['x'], data['accel']['y'], data['accel']['z']

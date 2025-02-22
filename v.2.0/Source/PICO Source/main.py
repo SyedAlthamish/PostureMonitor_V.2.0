@@ -62,11 +62,11 @@ while True:
     prev_time = curr_time
     
         
-    tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68 = calci_tilt_angles(data_68,1, dt, 0.98)
-    tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69 = calci_tilt_angles(data_69,2, dt, 0.98)  # Calculate tilt angles for the second sensor
+    tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68,tilt_zacc_68 = calci_tilt_angles(data_68,1, dt, 0.98)
+    tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69, tilt_zacc_69 = calci_tilt_angles(data_69,2, dt, 0.98)  # Calculate tilt angles for the second sensor
     #tilt_x_681, tilt_y_681, tilt_z_681, tilt_xacc_681, tilt_yacc_681 = calci_tilt_angles(data_681, 3, dt, 0.98)
     
-    tiltlist=[tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68,tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69]
+    tiltlist=[tilt_x_68, tilt_y_68, tilt_z_68, tilt_xacc_68, tilt_yacc_68,tilt_zacc_68,tilt_x_69, tilt_y_69, tilt_z_69, tilt_xacc_69, tilt_yacc_69, tilt_zacc_69]
     datalist=[data_68,data_69]								#all 3 sensor's data are grouped together into a list correspondent to their sensor no.
     
     printall(get_timestamp(),datalist,tiltlist,dt)							#func call to print all the data in a csv format, #prints as time_stamp,xa,ya,za,xgb,ybg,zbg,tilt_x,y,z,accx,tilt_accy,dt,sensor_no ; func located in lib_misc.py

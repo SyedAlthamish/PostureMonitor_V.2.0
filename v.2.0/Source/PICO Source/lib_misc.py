@@ -124,14 +124,16 @@ Function: to print data in the following format of output string and input argum
             for 3 sensors.
 '''
 def printall(time_stamp,datalist,tiltlist,dt):
+    n_of_sen = len(datalist)  # the number of sensors used
+    tilts_p_sen = int(len(tiltlist) / n_of_sen) #the total no of tilt variables per sensor
     datatypes=['accel','gyro_biased_fixed']			#the different indexes within datalist
     axes=['x','y','z']
-    for i in range(0,len(datalist)):
+    for i in range(0,n_of_sen):
         print(time_stamp,end=" ")
         for j in datatypes:
             for k in axes:
                 print(str(datalist[i][j][k]),end=" ")
-        for index in range((0+i*5),((4+i*5)+1)):
+        for index in range((0+i*tilts_p_sen),(tilts_p_sen+i*tilts_p_sen)):
             print(tiltlist[index],end=" ")
         print(dt,end=" ")            
         print(i+1)            
