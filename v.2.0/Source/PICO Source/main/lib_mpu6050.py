@@ -320,10 +320,10 @@ def get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, address,sensor):
     
     # Acquiring relevant data
     sensor_index = sensor - 1 
-    accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0
+    accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0       # in g = 9.8m/s^2
     accel_y = read_raw_data(i2c, ACCEL_XOUT_H + 2, address) / 16384.0
     accel_z = read_raw_data(i2c, ACCEL_XOUT_H + 4, address) / 16384.0
-    gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5#131.0
+    gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5#131.0      #degrees per second
     gyro_y = read_raw_data(i2c, GYRO_XOUT_H + 2, address) / 65.5
     gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5
   

@@ -1,0 +1,22 @@
+{
+    "folder-color.pathColors": [
+        {
+            "folderPath": "PostureMonitor_V.2.0\\v.2.0\\data\\",
+            "badge": "DA",
+            "color": "foldercolorizer.color_33ccff"
+        },
+        {
+            "folderPath": "PostureMonitor_V.2.0\\v.2.0\\Source\\PC Source\\",
+            "color": "foldercolorizer.color_3366ff"
+        },
+        {
+            "folderPath": "PostureMonitor_V.2.0\\v.2.0\\Source\\PICO Source\\",
+            "color": "foldercolorizer.color_00cc00",
+            "badge": "☺️"
+        },
+        {
+            "folderPath": "PostureMonitor_V.2.0\\v.2.0\\Source\\",
+            "badge": "CO"
+        }
+    ]
+}

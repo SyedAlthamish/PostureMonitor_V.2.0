@@ -8,7 +8,7 @@ import pandas as pd
 
 # Load your data
 file_name = input("Enter the FileName: ")
-file_path = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 Raw\\" + file_name +".txt"
+file_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 Raw\\" + file_name +".txt"
 df = pd.read_csv(file_path, header=None, delim_whitespace=True)
 no_of_sensors = 2
 
@@ -75,12 +75,12 @@ print(cleaned_df.head())
 
 #----------------------------------------creating the ML ready CSV file------------------------------------------------
 
-ML_path = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready\\" + file_name
+ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready\\" + file_name
 finaldf=cleaned_df    
 finaldf.to_csv(ML_path, index=False)
-print(f"Combined rows saved to {ML_path}")
+print(f"Combined rows saved to {ML_path}.txt")
 
-ML_path = r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready-with_rows\\" + file_name
+ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready-with_rows\\" + file_name
 finaldf=cleaned_with_rows_df    
 finaldf.to_csv(ML_path, index=False)
-print(f"Combined rows saved to {ML_path}")
+print(f"Combined rows saved to {ML_path}.txt")
