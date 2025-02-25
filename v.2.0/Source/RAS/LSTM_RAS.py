@@ -1,3 +1,23 @@
+'''{
+    File Description:
+    
+    Short: T
+        This file is designed to run a basic LSTM model from the input of data to export and performance analysis
+    
+    Long:
+        This script trains an LSTM model for multiclass classification using TensorFlow/Keras. 
+        It begins by loading a dataset from a CSV file, separating features (X) and the target (y), 
+        and encoding categorical labels using LabelEncoder followed by one-hot encoding. 
+        The data is then split into training (75%) and testing (25%) sets, with features scaled using StandardScaler 
+        and reshaped into a 3D format for LSTM input. The model consists of a single LSTM layer with 64 units, 
+        a dropout layer for regularization, and a dense output layer with softmax activation. It is trained for 
+        20 epochs using the Adam optimizer and categorical cross-entropy loss. After training, the model is 
+        evaluated on the test set, and its accuracy and loss are displayed. The trained model is saved as an .h5 file 
+        and converted into a TensorFlow Lite (.tflite) model for deployment. Additionally, the scaler and label encoder 
+        are saved using pickle for future use. Finally, predictions are made on the test set, mapped back to original 
+        labels, and evaluated using a classification report and confusion matrix.
+    }'''
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt

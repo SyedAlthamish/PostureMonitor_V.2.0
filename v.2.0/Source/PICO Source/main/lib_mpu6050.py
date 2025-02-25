@@ -1,79 +1,139 @@
-from machine import Pin, I2C
-import utime
-import math 
- 
-PWR_MGMT_1 = 0x6B
-SMPLRT_DIV = 0x19
-CONFIG = 0x1A
-GYRO_CONFIG = 0x1B
-ACCEL_CONFIG = 0x1C
-TEMP_OUT_H = 0x41
-ACCEL_XOUT_H = 0x3B
-GYRO_XOUT_H = 0x43
-angleX=[0,0,0]
-angleY=[0,0,0]
-angleZ=[0,0,0]
+'''{
+    File Description:
+        This file contains functions that support the interaction of the pico with the MPU6050 sensors for their data values,
+        including the feature extraction process from raw-values.
+    }'''
+from machine import Pin, I2C  # Import necessary modules for hardware control
+import utime  # Import utime for delays
+import math  # Import math module for calculations
 
-avgg_z=[-3.572,-0.183,0]
-avgg_x=[-3.619,-1.090,0]
-avgg_y=[0.902,0.699,0]
-avga_x=[0,0,0]
-avga_y=[0,0,0]
-avga_z=[0,0,0]
+# Define MPU6050 register addresses
+PWR_MGMT_1 = 0x6B     # Power management register
+SMPLRT_DIV = 0x19     # Sample rate divider
+CONFIG = 0x1A         # Configuration register
+GYRO_CONFIG = 0x1B    # Gyroscope configuration register
+ACCEL_CONFIG = 0x1C   # Accelerometer configuration register
+TEMP_OUT_H = 0x41     # Temperature data register (high byte)
+ACCEL_XOUT_H = 0x3B   # Accelerometer X-axis data register (high byte)
+GYRO_XOUT_H = 0x43    # Gyroscope X-axis data register (high byte)
+
+# Initialize lists to store angles for different sensors
+angleX = [0, 0, 0]  # Stores computed X-axis tilt angles for three sensors
+angleY = [0, 0, 0]  # Stores computed Y-axis tilt angles for three sensors
+angleZ = [0, 0, 0]  # Stores computed Z-axis tilt angles for three sensors
+
+# Pre-calculated gyro bias values for three sensors
+avgg_z = [-3.572, -0.183, 0]  # Bias values for gyroscope Z-axis
+avgg_x = [-3.619, -1.090, 0]  # Bias values for gyroscope X-axis
+avgg_y = [0.902, 0.699, 0]    # Bias values for gyroscope Y-axis
+
+# Placeholder for accelerometer biases (to be calibrated if necessary)
+avga_x = [0, 0, 0]  # Bias values for accelerometer X-axis
+avga_y = [0, 0, 0]  # Bias values for accelerometer Y-axis
+avga_z = [0, 0, 0]  # Bias values for accelerometer Z-axis
+
 def init_mpu6050(i2c, address=0x68):
-    i2c.writeto_mem(address, PWR_MGMT_1, b'\x01')#0x00
-    utime.sleep_ms(100)
-    i2c.writeto_mem(address, SMPLRT_DIV, b'\x00')#x07
-    i2c.writeto_mem(address, CONFIG, b'\x00')
-    i2c.writeto_mem(address, GYRO_CONFIG, b'\x08')#0x00
-    i2c.writeto_mem(address, ACCEL_CONFIG, b'\x00')
+    """{
+    Initializes the MPU6050 sensor by configuring necessary registers.
     
+    Parameters:
+        i2c (I2C): I2C instance for communication
+        address (int): I2C address of the sensor (default: 0x68)
+    }"""
+    i2c.writeto_mem(address, PWR_MGMT_1, b'\x01')  # Wake up MPU6050 from sleep mode
+    utime.sleep_ms(100)  # Wait for sensor stabilization
+    i2c.writeto_mem(address, SMPLRT_DIV, b'\x00')  # Set sample rate divider
+    i2c.writeto_mem(address, CONFIG, b'\x00')  # Configure digital low-pass filter
+    i2c.writeto_mem(address, GYRO_CONFIG, b'\x08')  # Set gyroscope sensitivity to ±500°/s
+    i2c.writeto_mem(address, ACCEL_CONFIG, b'\x00')  # Set accelerometer sensitivity to ±2g
+
 def read_raw_data(i2c, addr, address=0x68):
-    high = i2c.readfrom_mem(address, addr, 1)[0]
-    low = i2c.readfrom_mem(address, addr + 1, 1)[0]
-    value = high << 8 | low
-    if value > 32768:
-        value = value - 65536
-    return value
+    """{
+    Reads raw 16-bit sensor data from the given register address.
+
+    Parameters:
+        i2c (I2C): I2C instance for communication
+        addr (int): Register address to read data from
+        address (int): I2C address of the sensor (default: 0x68)
+    
+    Returns:
+        int: Processed raw data value (signed 16-bit)
+    }"""
+    high = i2c.readfrom_mem(address, addr, 1)[0]  # Read high byte
+    low = i2c.readfrom_mem(address, addr + 1, 1)[0]  # Read low byte
+    value = (high << 8) | low  # Combine high and low bytes
+
+    if value > 32768:  # Convert to signed 16-bit integer
+        value -= 65536
+
+    return value  # Return processed data value
 
 def variance(data):
-    n = len(data)
-    if n == 0:
-        return 0
-    mean = sum(data) / n
-    squared_diffs = [(x - mean) ** 2 for x in data]
-    return sum(squared_diffs) / (n - 1)  # Sample variance (ddof=1)
+    """{
+    Computes the sample variance of a given dataset.
 
-def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
-    print("Calibrating gyroscope...")
+    Parameters:
+        data (list of float): List of numerical values.
+
+    Returns:
+        float: Sample variance of the dataset (ddof=1).
+    }"""
+    n = len(data)  # Get the number of elements in the dataset
+    if n == 0:  # Handle empty list case
+        return 0
+    mean = sum(data) / n  # Compute mean of the dataset
+    squared_diffs = [(x - mean) ** 2 for x in data]  # Compute squared differences from mean
+    return sum(squared_diffs) / (n - 1)  # Return sample variance
+
+def calibrate_gyro(i2c, address, sensor_no, num_samples=500):  # Default to 500 samples
+    """{
+    Calibrates the gyroscope by averaging multiple sensor readings.
+
+    Parameters:
+        i2c (I2C): I2C instance for communication.
+        address (int): I2C address of the sensor.
+        sensor_no (int): Sensor number (1-based indexing).
+        num_samples (int): Number of samples to average for calibration (default: 500).
+
+    Returns:
+        tuple: Averaged gyroscope bias values (avgg_x, avgg_y, avgg_z) for the given sensor.
+    }"""
+    
+    print("Calibrating gyroscope...")                   #User-Information
+
+    # Initialize sum variables for gyroscope and accelerometer readings
     sumg_x = 0
     sumg_y = 0
     sumg_z = 0
     suma_x = 0
     suma_y = 0
     suma_z = 0
-    
+
+    # Collect `num_samples` readings from the sensor to find bias from
     for _ in range(num_samples):
-        gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5 #131.0
-        gyro_y = read_raw_data(i2c, GYRO_XOUT_H + 2, address) / 65.5
-        gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5
-        accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0
-        accel_y = read_raw_data(i2c, ACCEL_XOUT_H + 2, address) / 16384.0
-        accel_z = read_raw_data(i2c, ACCEL_XOUT_H + 4, address) / 16384.0
         
+        # collect and scale data with respect to established sensitivity
+        gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5  # Convert raw gyroscope X data
+        gyro_y = read_raw_data(i2c, GYRO_XOUT_H + 2, address) / 65.5  # Convert raw gyroscope Y data
+        gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5  # Convert raw gyroscope Z data
+        accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0  # Convert raw accelerometer X data
+        accel_y = read_raw_data(i2c, ACCEL_XOUT_H + 2, address) / 16384.0  # Convert raw accelerometer Y data
+        accel_z = read_raw_data(i2c, ACCEL_XOUT_H + 4, address) / 16384.0  # Convert raw accelerometer Z data
+
+        # Accumulate values for averaging
         sumg_x += gyro_x
         sumg_y += gyro_y
         sumg_z += gyro_z
         suma_x += accel_x
         suma_y += accel_y
         suma_z += accel_z
-        
-        utime.sleep_ms(10)  #10
 
-    sensor=sensor_no-1
-    # Compute average
+        utime.sleep_ms(10)  # Delay between readings to stabilize measurements
+
+    sensor = sensor_no - 1  # Convert 1-based sensor number to 0-based index
+
+    # Compute and store average gyroscope and accelerometer biases
     global avgg_x, avgg_y, avgg_z, avga_x, avga_y, avga_z
-    
     avgg_x[sensor] = sumg_x / num_samples
     avgg_y[sensor] = sumg_y / num_samples
     avgg_z[sensor] = sumg_z / num_samples
@@ -81,131 +141,150 @@ def calibrate_gyro(i2c,address,sensor_no,num_samples=500):#1000
     avga_y[sensor] = suma_y / num_samples
     avga_z[sensor] = suma_z / num_samples
 
-    print("Gyroscope calibration complete.",avgg_x[sensor],avgg_y[sensor],avgg_z[sensor])
-    #print("Average values: X: {:.2f}, Y: {:.2f}, Z: {:.2f}".format(avgg_x, avgg_y, avg_z))
-    return avgg_x[sensor],avgg_y[sensor],avgg_z[sensor]
+    print("Gyroscope calibration complete.", avgg_x[sensor], avgg_y[sensor], avgg_z[sensor])
+    return avgg_x[sensor], avgg_y[sensor], avgg_z[sensor]
 
-def calibrate_gyroonlyZ(i2c, address,sensor, num_samples=1000):
-    print("Calibrating gyroscope...")
+def calibrate_gyroonlyZ(i2c, address, sensor, num_samples=1000):
+    """{
+        Calibrates the gyroscope for the Z-axis by computing its average offset.
+
+        Parameters:
+            i2c (I2C): I2C instance for communication.
+            address (int): I2C address of the MPU6050 sensor.
+            sensor (int): Index of the sensor in the global array.
+            num_samples (int): Number of samples for averaging (default: 1000).
+        
+        Returns:
+            None
+    }"""
+    print("Calibrating gyroscope...")           # User Info
     sumg_z = 0
     
+    # summing the multiple values for num_samples samples.
     for _ in range(num_samples):
-        gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5
+        gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5  # Read and convert raw Z-axis gyroscope data.
         sumg_z += gyro_z
-        utime.sleep_ms(10)  # Adjust sleep time if needed
+        utime.sleep_ms(10)  # Delay to avoid excessive polling.
 
     # Compute average
     global avgg_z
-    avgg_z[sensor] = sumg_z / num_samples
+    avgg_z[sensor] = sumg_z / num_samples       # storing in a global variable.
 
-    print("Gyroscope Z-axis calibration complete.")
+    print("Gyroscope Z-axis calibration complete.") # User Info
 
-def calci_tilt_angles(data,sensor_no,dtime,alpha=0.98):
+def calci_tilt_angles(data, sensor_no, dtime, alpha=0.98):
+    """{
+        Computes tilt angles using accelerometer and gyroscope data via a complementary filter.
+
+        Parameters:
+            data (dict): Dictionary containing accelerometer and gyroscope data.
+            sensor_no (int): Sensor index (1-based).
+            dtime (float): Time step between measurements.
+            alpha (float): Complementary filter weighting factor (default: 0.98).
+        
+        Returns:
+            tuple: Filtered tilt angles (angleX, angleY, angleZ) and raw accelerometer tilt angles.
+    }"""
     x, y, z = data['accel']['x'], data['accel']['y'], data['accel']['z']
- 
+
+    # Compute accelerometer-based angles - using established formulas
     angleAccX = math.atan2(y, math.sqrt(x * x + z * z)) * 180 / math.pi
-    angleAccY = - math.atan2(x, math.sqrt(y * y + z * z)) * 180 / math.pi# minus inside bracker
-    angleAccZ = - math.atan2(math.sqrt(y * y + x * x),z ) * 180 / math.pi# minus inside bracker
-    global angleX
-    global angleY
-    global angleZ
-    
-    sensor_index=sensor_no-1
-    
-    angleX[sensor_index]= wrap(alpha*(angleAccX + wrap(angleX[sensor_index] + data['gyro_biased_fixed']['x']*dtime - angleAccX,180)) + (1.0-alpha)*angleAccX,180)				#the explanation is given below
+    angleAccY = -math.atan2(x, math.sqrt(y * y + z * z)) * 180 / math.pi
+    angleAccZ = -math.atan2(math.sqrt(y * y + x * x), z) * 180 / math.pi
+
+    global angleX, angleY, angleZ
+    sensor_index = sensor_no - 1  # Convert 1-based index to 0-based.
+
+    # Apply complementary filter for tilt angle estimation. - using established formulas - further explained below the library file
+    angleX[sensor_index] = wrap(alpha * (angleAccX + wrap(angleX[sensor_index] + data['gyro_biased_fixed']['x'] * dtime - angleAccX, 180)) + (1.0 - alpha) * angleAccX, 180)
     angleY[sensor_index] = wrap(alpha * (angleAccY + wrap(angleY[sensor_index] + data['gyro_biased_fixed']['y'] * dtime - angleAccY, 180)) + (1.0 - alpha) * angleAccY, 180)
-    #angleZ[sensor_index] = wrap(angleZ[sensor_index] + data['gyro_biased_fixed']['z'] * dtime, 180)
     angleZ[sensor_index] = wrap(alpha * (angleAccZ + wrap(angleZ[sensor_index] + data['gyro_biased_fixed']['z'] * dtime - angleAccZ, 180)) + (1.0 - alpha) * angleAccZ, 180)
 
- 
-    return angleX[sensor_index], angleY[sensor_index], angleZ[sensor_index],angleAccX,angleAccY,angleAccZ
-
-def calci_tilt_accangles(data, dtime, sensor, alpha=0.98):
-    x, y, z = data['accel']['x'], data['accel']['y'], data['accel']['z']
-    
-    angleAccX = math.atan2(y, math.sqrt(x * x + z * z)) * 180 / math.pi
-    angleAccY = - math.atan2(x, math.sqrt(y * y + z * z)) * 180 / math.pi
-    angleAccZ = math.atan2(math.sqrt(x * x + y * y), z) * 180 / math.pi
-    
-    global angleZ
-    angleZ[sensor] += data['gyro']['z']*dtime;
-    
-    
-    angleX = wrap(alpha * angleAccX + (1.0 - alpha) * angleAccX, 180)
-    angleY = wrap(alpha * angleAccY + (1.0 - alpha) * angleAccY, 180)
-    #angleZ = wrap(alpha * angleAccZ + (1.0 - alpha) * angleAccZ, 180)
-    
-    return angleAccX, angleAccY, angleZ[sensor]
+    return angleX[sensor_index], angleY[sensor_index], angleZ[sensor_index], angleAccX, angleAccY, angleAccZ
 
 def wrap(angle, limit):
+    """{
+        Wraps an angle within a given limit to ensure it stays within bounds. particularly used for gyro angle estimation
+
+        Parameters:
+            angle (float): Input angle in degrees.
+            limit (float): Maximum absolute value for the angle.
+        
+        Returns:
+            float: Wrapped angle within the specified limit.
+    }"""
     while angle > limit:
         angle -= 2 * limit
     while angle < -limit:
         angle += 2 * limit
     return angle
 
-def get_mpu6050_data(i2c, address,sensor):
-    #temp = read_raw_data(i2c, TEMP_OUT_H, address) / 340.0 + 36.53
+def get_mpu6050_data(i2c, address, sensor):
+    """{
+        Reads raw accelerometer and gyroscope data from the MPU6050 sensor.
+
+        Parameters:
+            i2c (I2C): I2C instance for communication.
+            address (int): I2C address of the MPU6050 sensor.
+            sensor (int): Sensor index (for tracking purposes).
+        
+        Returns:
+            dict: Dictionary containing accelerometer and gyroscope readings.
+    }"""
+    # Read accelerometer data and convert to g-forces.
     accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0
     accel_y = read_raw_data(i2c, ACCEL_XOUT_H + 2, address) / 16384.0
     accel_z = read_raw_data(i2c, ACCEL_XOUT_H + 4, address) / 16384.0
-    gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5#131.0
+
+    # Read gyroscope data and convert to degrees per second.
+    gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5
     gyro_y = read_raw_data(i2c, GYRO_XOUT_H + 2, address) / 65.5
     gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5
-    
-    
-    global avgg_z
-    #print(avgg_z[sensor])
+
     return {
-        'accel': {
-            'x': accel_x, #w/out offsets changes
-            'y': accel_y,
-            'z': accel_z,
-        },
-        'gyro': {
-            'x': gyro_x,
-            'y': gyro_y,
-            'z': gyro_z,
-        }
+        'accel': {'x': accel_x, 'y': accel_y, 'z': accel_z},
+        'gyro': {'x': gyro_x, 'y': gyro_y, 'z': gyro_z},
     }
 
-def get_mpu6050_comprehensive_data(i2c, address,sensor):
-    #temp = read_raw_data(i2c, TEMP_OUT_H, address) / 340.0 + 36.53
+def get_mpu6050_comprehensive_data(i2c, address, sensor):
+    """{
+        Reads raw accelerometer and gyroscope data and computes bias-corrected gyroscope values.
+
+        Parameters:
+            i2c (I2C): I2C instance for communication.
+            address (int): I2C address of the MPU6050 sensor.
+            sensor (int): Sensor index (1-based).
+        
+        Returns:
+            dict: Dictionary containing raw accelerometer and gyroscope readings, along with bias-corrected gyroscope values.
+    }"""
+    # Read accelerometer data and convert to g-forces.
     accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0
     accel_y = read_raw_data(i2c, ACCEL_XOUT_H + 2, address) / 16384.0
     accel_z = read_raw_data(i2c, ACCEL_XOUT_H + 4, address) / 16384.0
-    gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5#131.0
+
+    # Read gyroscope data and convert to degrees per second.
+    gyro_x = read_raw_data(i2c, GYRO_XOUT_H, address) / 65.5
     gyro_y = read_raw_data(i2c, GYRO_XOUT_H + 2, address) / 65.5
     gyro_z = read_raw_data(i2c, GYRO_XOUT_H + 4, address) / 65.5
-    
-    
-    global avgg_z,avgg_x,avgg_y
-    
-    gyro_bx = gyro_x-avgg_x[sensor-1]
-    gyro_by = gyro_y-avgg_y[sensor-1]
-    gyro_bz = gyro_z-avgg_z[sensor-1]
-    
-     
-    #print(avgg_z[sensor])
+
+    global avgg_x, avgg_y, avgg_z
+
+    # Compute bias-corrected gyroscope values.
+    sensor_index = sensor - 1  # Convert 1-based index to 0-based.
+    gyro_bx = gyro_x - avgg_x[sensor_index]
+    gyro_by = gyro_y - avgg_y[sensor_index]
+    gyro_bz = gyro_z - avgg_z[sensor_index]
+
     return {
-        'accel': {
-            'x': accel_x, #w/out offsets changes
-            'y': accel_y,
-            'z': accel_z,
-        },
-        'gyro': {
-            'x': gyro_x,
-            'y': gyro_y,
-            'z': gyro_z,
-        },
-        'gyro_biased':{
-            'x': gyro_bx,
-            'y': gyro_by,
-            'z': gyro_bz,
-        }   
+        'accel': {'x': accel_x, 'y': accel_y, 'z': accel_z},
+        'gyro': {'x': gyro_x, 'y': gyro_y, 'z': gyro_z},
+        'gyro_biased': {'x': gyro_bx, 'y': gyro_by, 'z': gyro_bz},
     }
 
-tri_sample_data = [     # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - prev
+
+### Gyro_Spike_Fix Function Variable Initialization
+tri_sample_data = [     # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - prev            
                         # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - current  
                         # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - new
                         # for all 3 sensors
@@ -231,10 +310,15 @@ tri_sample_data = [     # [ax, ay, az, gx, gy, gz, gbx, gby, gbz] - prev
 prev_index = 0
 curr_index = 1
 new_index = 2
-gyrob_index_start = 6
-gyrob_index_end = 8
+gyrob_index_start = 6          # the starting index of the biased gyro values(x,y,z) in the tri_sample_data
+gyrob_index_end = 8             # the ending index of the biased gyro values(x,y,z) in the tri_sample_data
 def get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, address,sensor):
-    #temp = read_raw_data(i2c, TEMP_OUT_H, address) / 340.0 + 36.53
+    '''{
+        This function operates the same as get_mpu6050_comprehensive_data but also fixes the irrelevant spikes that happen,
+        but delays the output by one sample.
+        }'''
+    
+    # Acquiring relevant data
     sensor_index = sensor - 1 
     accel_x = read_raw_data(i2c, ACCEL_XOUT_H, address) / 16384.0
     accel_y = read_raw_data(i2c, ACCEL_XOUT_H + 2, address) / 16384.0
@@ -245,24 +329,30 @@ def get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, address,sensor):
   
     global avgg_z,avgg_x,avgg_y
     
+    # Applying Bias fixes for gyroscopes
     gyro_bx = gyro_x-avgg_x[sensor_index]
     gyro_by = gyro_y-avgg_y[sensor_index]
     gyro_bz = gyro_z-avgg_z[sensor_index]
     
+    # initializing the newest sample of the tri_sample_data with the newest data.
     tri_sample_data[sensor_index][new_index] = [accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,gyro_bx,gyro_by,gyro_bz]
     
+    # returns true for checking if two values are oppositely signed (+&-)
     def opposite_signs(a, b):
         return (a * b) < 0  # Works for int and float
 
-    
-    for i in range (gyrob_index_start,gyrob_index_end + 1): #cycling through all axes
+    #cycling through all values of gyroscope axes, to eliminate the spikes.
+    for i in range (gyrob_index_start,gyrob_index_end + 1): 
+        
+        # Extracting Values
         new_val = tri_sample_data[sensor_index][new_index][i]
         curr_val = tri_sample_data[sensor_index][curr_index][i]
         prev_val = tri_sample_data[sensor_index][prev_index][i]
         
-        if not (math.floor(abs(new_val)) == 0 and math.floor(abs(prev_val)) == 0 and math.floor(abs(curr_val)) == 0): 
+        # The Spike_Fix Algorithm
+        if not (math.floor(abs(new_val)) == 0 and math.floor(abs(prev_val)) == 0 and math.floor(abs(curr_val)) == 0): # making sure it isn't a normal 0 based value
             # to 0 the single peak values
-            if math.floor(abs(new_val)) == 0 and math.floor(abs(prev_val)) == 0 and math.floor(abs(curr_val)) != 0:
+            if math.floor(abs(new_val)) == 0 and math.floor(abs(prev_val)) == 0 and math.floor(abs(curr_val)) != 0:   
                 tri_sample_data[sensor_index][curr_index][i] = 0
             
             # to 0 the mirror peak
@@ -273,17 +363,16 @@ def get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, address,sensor):
             elif math.floor(abs(prev_val)) == 0 and abs((abs(curr_val)) - (abs(new_val))) < 0.095  :
                 tri_sample_data[sensor_index][curr_index][i] = 0
         
+    # storing the fixed data for transmitting
     gyro_bx_f = tri_sample_data[sensor_index][curr_index][gyrob_index_start]
     gyro_by_f = tri_sample_data[sensor_index][curr_index][gyrob_index_start+1]
     gyro_bz_f = tri_sample_data[sensor_index][curr_index][gyrob_index_end]    
     
+    #preparing the tri_sample_data for the next loop; Left shifting the array for the next new_index
     tri_sample_data[sensor_index][prev_index] =  tri_sample_data[sensor_index][curr_index]
     tri_sample_data[sensor_index][curr_index] =  tri_sample_data[sensor_index][new_index]
-    
-    
-    
-    
-    #print(avgg_z[sensor])
+
+
     return {
         'accel': {
             'x': accel_x, #w/out offsets changes
@@ -307,29 +396,49 @@ def get_mpu6050_comprehensive_data_Gyro_Spike_Fix(i2c, address,sensor):
         }   
     }
 
+def calibrate_checkgyro(i2c, address, sensor_no, num_samples=200):  # Collects and checks gyroscope variance
+    """{ 
+    Calibrates the gyroscope by collecting multiple readings and checking their variance.
+    
+    Parameters:
+    - i2c: I2C interface object.
+    - address: I2C address of the MPU6050 sensor.
+    - sensor_no: Sensor number (1-based index).
+    - num_samples: Number of samples to collect for calibration (default: 200).
+    
+    The function reads gyroscope data from the sensor, calculates the variance of each axis,
+    and checks if the variance is below a predefined threshold. If variance is within limits,
+    it prints confirmation; otherwise, it warns of excessive variance.
+    }"""
+    
+    gyroxlist = []  # List to store X-axis gyroscope readings
+    gyroylist = []  # List to store Y-axis gyroscope readings
+    gyrozlist = []  # List to store Z-axis gyroscope readings
 
-def calibrate_checkgyro(i2c,address,sensor_no,num_samples=200):#1000
-    gyroxlist=[]
-    gyroylist=[]
-    gyrozlist=[]
-    for i in range(num_samples):
-        data=get_mpu6050_comprehensive_data(i2c,address,sensor_no)
-        gyro_x = data['gyro_biased']['x']
-        gyro_y = data['gyro_biased']['y']
-        gyro_z = data['gyro_biased']['z']
-        gyroxlist.append(gyro_x)
-        gyroylist.append(gyro_y)
-        gyrozlist.append(gyro_z)
+    for i in range(num_samples):  
+        data = get_mpu6050_comprehensive_data(i2c, address, sensor_no)  # Retrieve sensor data
+        gyro_x = data['gyro_biased']['x']  # Extract bias-corrected X-axis gyro data
+        gyro_y = data['gyro_biased']['y']  # Extract bias-corrected Y-axis gyro data
+        gyro_z = data['gyro_biased']['z']  # Extract bias-corrected Z-axis gyro data
+        gyroxlist.append(gyro_x)  # Store X-axis data
+        gyroylist.append(gyro_y)  # Store Y-axis data
+        gyrozlist.append(gyro_z)  # Store Z-axis data
+
+    sensor_index = sensor_no - 1  # Convert sensor number to 0-based index
     
-    sensor_index=sensor_no-1
-    sensor_var_threshold=[[1.2,1.2,1.2],[1.2,1.2,1.2],[1.2,1.2,1.2]]
-    
-    if (variance(gyroxlist) < sensor_var_threshold[sensor_index][0] and variance(gyroylist) < sensor_var_threshold[sensor_index][1] and variance(gyrozlist) < sensor_var_threshold[sensor_index][2]):
-        print("variance checks out", variance(gyroxlist),variance(gyroylist),variance(gyrozlist))
+    # Predefined variance threshold for each sensor and axis
+    sensor_var_threshold = [[1.2, 1.2, 1.2],  # Sensor 1: [X, Y, Z] variance thresholds
+                            [1.2, 1.2, 1.2],  # Sensor 2: [X, Y, Z] variance thresholds
+                            [1.2, 1.2, 1.2]]  # Sensor 3: [X, Y, Z] variance thresholds
+
+    # Check if variance for each axis is below the threshold
+    if (variance(gyroxlist) < sensor_var_threshold[sensor_index][0] and
+        variance(gyroylist) < sensor_var_threshold[sensor_index][1] and
+        variance(gyrozlist) < sensor_var_threshold[sensor_index][2]):
+        print("variance checks out", variance(gyroxlist), variance(gyroylist), variance(gyrozlist))  # Print success message
     else:
-        print("variance doesn't check out")
-        print(variance(gyroxlist),variance(gyroylist),variance(gyrozlist) )
-
+        print("variance doesn't check out")  # Print warning if variance exceeds the threshold
+        print(variance(gyroxlist), variance(gyroylist), variance(gyrozlist))  # Display the computed variances
 
 
 '''

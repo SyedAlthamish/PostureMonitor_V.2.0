@@ -1,3 +1,25 @@
+'''{
+    File Description:
+    
+    Short: 
+        this file is a basic implementation of real-time inputting of sensor data and outputting of lstm-classified
+        labels from an imported trained lstm classifier.
+    
+    Long:
+        This script implements an LSTM-based posture classification system for live data processing on a 
+        Raspberry Pi 5. It begins by loading the necessary preprocessing tools, including a StandardScaler for 
+        feature scaling and a LabelEncoder for mapping predictions back to posture labels. The TensorFlow Lite 
+        (.tflite) model is then loaded and allocated with input and output tensors for inference. A serial connection 
+        is established to receive real-time sensor data from an external device, with adjustable port and baud rate 
+        settings. Incoming data is read, decoded, and converted into a numerical array, ensuring it matches the expected 
+        input format. The data is then standardized using the preloaded scaler and reshaped to fit the LSTM model’s 
+        input structure. The model makes predictions, which are mapped back to posture labels using the label encoder. 
+        The script continuously processes live sensor data and prints the predicted posture, along with specific messages
+        for different classifications, such as "Neutral posture," "Slouching," "Hunching," or "Leaning" in various 
+        directions.
+    }'''
+
+
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jan 27 13:20:06 2025

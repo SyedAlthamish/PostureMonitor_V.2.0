@@ -1,12 +1,15 @@
-'''
-{
+'''{
+    File Description:
+        This file contains functions that support the operation of the PICO to handle the data acquired from the sensors,
+        including its transmitting to the PC
+    
     This Library Contains the following functions:
         1. printall(datalist): to csv-print all necessary mpu data
         2. calcianglealone(data): to return tilt from Accelerometer data
         3. get_timestamp(): returns current local time in MM.SS
+        4. and etc...
 
-}
-'''
+    }'''
 
 
 import utime
@@ -47,22 +50,10 @@ Function: to print data in the following format of output string and input argum
 }                
 '''
 def printall_Rtime6Comp(time_stamp,datalist,tiltlist,dt):
+    '''{
+        File
+        }'''
     
-    '''
-    datatypes=['accel','gyro','gyro_biased']			#the different indexes within datalist
-    axes=['x','y','z']
-    printlist=[]
-    for j in datatypes:
-        for i in range(0,len(datalist)):
-            for k in axes:
-                    datapoint=datalist[i][j][k]
-                    #print(str(datapoint),end=" ")
-                    printlist.append(str(datapoint)+str(i)+str(j)+str(k)+"            ")
-    #print(printlist)
-    for f in (printlist):
-        print(f,end="")
-    print("\n",end="n")
-    '''
     printlist=tiltlist[0:3]
     printlist.extend(tiltlist[5:8])
     for i in printlist:

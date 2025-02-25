@@ -1,3 +1,4 @@
 - PICO Source is a file containing source code that runs in the PICO microcontroller. 
-- The additional files contains code that aren't necessary but helpful when needed.
+- The main folder is the files that are supposed to be loaded onto the Pico to run the main purpose of the system
+- The additional files contains code that aren't necessary for the main purpose but helpful when needed.
 - the purpose of each file is depicted within its documentation present in each file

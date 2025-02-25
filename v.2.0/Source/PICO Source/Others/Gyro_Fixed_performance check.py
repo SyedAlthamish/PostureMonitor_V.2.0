@@ -1,18 +1,10 @@
 #Scrap file
-'''
-Takes only the 2 sensors for main data acq and outputs 22 values of features via text from Pico through Wire to PC
-File Name: main_afterRT_only2.py
+'''{
+    File Description:(main.py file)
+        The purpose of this file is to check the performance of the gyro_spike fix that was implemented.
+        It operates in the same order as data acquisition, except it outputs data only relevant to the gyro_values.
+    }'''
 
-Purpose: This code runs the Data acquisiton protocol for 2 sensors and 22(11+11) features with timestamps
-
-Functional Description:-
-    1. once powered, the user is given time to prepare himself for the calibration phase
-    2. The calibration performance check also occurs
-    3. the values are being printed with timestamps and the timestamps must be noted when changing and during postures
-    
-Note:
-    - The gbz values or gyro_biased_z values have an abnormality where sudden unpredictable spikes from ~0 to ~ +-3.8 occurs. The matter hasn't been resolved.
-'''
 
 #importion of libraries
 from machine import Pin, I2C																				#for Pin Manipulation, i2c communication
@@ -24,26 +16,12 @@ from lib_misc import *
 #The setting of MPU6050 sensor's addresses
 pin1 = Pin(0, Pin.OUT)			#making pin_no_0 or GPIO_0 as output mode
 pin1.value(1)					#making GPIO_0 as HIGH to represent one of the sensors in i2c0 channel as addresses 0x69
-utime.sleep(3)
+utime.sleep(3)                  # some time for the sensors to power up
 
 #Initialization of I2C, MPU, and Data-Processing
 i2c = I2C(0, scl=Pin(21), sda=Pin(20), freq=400000)		#initializing i2c0 channel
-i2c1 = I2C(1, scl=Pin(19), sda=Pin(18), freq=400000)	#initializing i2c1 channel
 init_mpu6050(i2c, 0x68)									#initializing first sensor in i2c0		
 init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
-#init_mpu6050(i2c1,0x68)									#initializing first sensor in i2c1		
-
-#utime.sleep(7)
-
-#calibration routine for gyros
-#calibrate_gyro(i2c,0x68,1)
-#calibrate_gyro(i2c,0x69,2)
-#calibrate_gyro(i2c1,0x68,3)
- 
-#calibration performance check for gyros
-#calibrate_checkgyro(i2c,0x68,1)
-#calibrate_checkgyro(i2c,0x69,2)
-#calibrate_checkgyro(i2c1,0x68,3)
 
 
 prev_time = utime.ticks_ms()							#initializing time parameteric for integrating gyro data
