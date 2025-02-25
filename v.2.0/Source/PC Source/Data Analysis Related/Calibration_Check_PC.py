@@ -1,3 +1,10 @@
+'''{
+    File Description:
+        This file's function is to take the pre-calibrated data from sensor and estimate the performance of the threshold
+        used to pre-calibrate by looking at the post-calibrated data's stability in various situations.
+    }'''
+
+#%% ######################################### Basic details about Calibrated data #####################################
 import statistics                                                                                          # Import statistics module for calculations
 from tabulate import tabulate                                                                             # Import tabulate for pretty table formatting
 
@@ -66,6 +73,9 @@ except ImportError:                                                             
     print("=" * 80)                                                                                      # Print separator
     for row in table_data:                                                                               # Iterate through table data
         print(f"{row[0]:<12}{row[1]:<10}{row[2]:<6}{row[3]:<10.2f}{row[4]:<10.2f}{row[5]:<10.2f}{row[6]:<10.2f}{row[7]:<6}{row[8]:<6}")  # Print each row
+
+
+#%% ################################################## Difference Between one calib_state vs other calib_state ##########################
 
 import itertools                                                                                          # Import itertools for combinations
 import statistics                                                                                          # Import statistics module for calculations

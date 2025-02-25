@@ -1,3 +1,7 @@
+'''{
+    The purpose of this file is to test two-way communicative connection between pc and pcio
+    }'''
+
 import serial
 
 pico_port = "COM16"  # Update with your correct port

@@ -33,14 +33,12 @@ for row_no in range(0, len(df), no_of_rows_to_combine):
 # Convert combined rows list into a DataFrame
 combined_df = pd.DataFrame(combined_rows)
 
-# 🌟 Rename Columns Before Dropping
-
+### Creating Column names for each sensor
 df_column_names = [
     "time_stamp", "xa", "ya", "za", "xgb", "ybg", "zbg",
     "tilt_x", "tilt_y", "tilt_z", "tilt_accx", "tilt_accy",
     "tilt_accz","dt", "sensor_no","State"
 ]
-
 # Generate column names for two sensors
 new_column_names = []
 for sensor_id in range(1, no_of_sensors + 1):  # For sensor 1 and 2
@@ -51,23 +49,22 @@ print(new_column_names)
 
 combined_df.columns = new_column_names  # Assign new column names
 
+# Removing Irrelevant columns
 cleaned_df = combined_df
 # Define column names to drop
 columns_to_drop = [
     'time_stamp_S1', 'dt_S1', "State_S1",
     'sensor_no_S1', 'time_stamp_S2', 'dt_S2', 'sensor_no_S2'
 ]
-
 # Drop the specified columns
 cleaned_df.drop(columns=columns_to_drop, axis=1, inplace=True)
-
 cleaned_with_rows_df = cleaned_df
 
-# Remove rows where "State_S2" is "unknown" or "transient"
+# Removing irrelevant rows
 cleaned_df = cleaned_df.loc[~cleaned_df["State_S2"].isin(["Unknown", "Transition"])]
 # Rename the last column
 cleaned_df.rename(columns={cleaned_df.columns[-1]: "Posture"}, inplace=True)
-# Remove the last 4 characters from the "Posture" column
+# Remove the last 4 characters from the "Posture" column - "ss.png" -> "ss"
 cleaned_df["Posture"] = cleaned_df["Posture"].astype(str).str.slice(stop=-4)
 
 
