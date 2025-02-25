@@ -39,6 +39,7 @@ image_folder = (
     / "Others"
     / "Work_Pictures"
     / "Data_Acquisiton v.3.0 postures"
+    / "Sample"
 )
 
 # List all image files in the directory
@@ -167,7 +168,7 @@ print("Process end")
 
 # Save collected serial data to a user_defined file
 file_name = (
-    r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\v.3.0 Raw\\"
+    r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 Raw\\"
     + input("Enter the Data_File Name: ") + ".txt"
 )
 
@@ -181,4 +182,4 @@ import subprocess
 
 # Occasionally, errors may occur at line 98 of the following script.
 # In such cases, manually correct the error and run the script independently.
-subprocess.run(["python", r"Source/PC Source/v.3.0Raw CSV to ML-Ready CSV.py"])
+subprocess.run(["python", r"C:\Althamish\Project\Posture Monitor\Git_PostureMonitor\PostureMonitor_V.2.0\v.2.0\Source\PC Source\Data Acq Related\V.3.0\v.3.0Raw CSV to ML-Ready CSV.py"])

@@ -26,7 +26,7 @@ init_mpu6050(i2c, 0x69)     							#initializing second sensor in i2c0
 ### Waiting for Permission from the PC to begin sending data
 while True:
     read_data = sys.stdin.read(1)  # hangs here till a byte is read
-    if read_data == 'y':           # waiting for PC to send 'y' as affirmation
+    if read_data == 'y':
         break
     print("Waiting for Permission(y/n)")
 
