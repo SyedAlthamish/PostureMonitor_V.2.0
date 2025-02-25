@@ -1,4 +1,5 @@
-#Scrap file
+########################  Scrap file ###################################################
+
 '''
 Takes only the 2 sensors for main data acq and outputs 22 values of features via text from Pico through Wire to PC
 File Name: main_afterRT_only2.py
