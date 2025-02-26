@@ -3,18 +3,29 @@ this file is used to take an input raw text document dataset from the
 Data_Acq_Protocol.py file and convert into a ML ready csv file
 i.e. to produce structured and labelled dataset with columns from 'xa_S1' to 'tilt_accy_S2'&'State_S2' from raw text output of  pico
 '''
-
+#%% ################################## Importing data and Init #####################
 import pandas as pd
+from pathlib import Path
 
 # Load your data
 file_name = input("Enter the FileName: ")
-file_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 Raw\\" + file_name +".txt"
-df = pd.read_csv(file_path, header=None, delim_whitespace=True)
+
+file_path = (
+    Path(r"C:\Althamish\Project")
+    / "PostureMonitor_V.2.0"
+    / "v.2.0"
+    / "data"
+    / "V.3.0"
+    / "v.3.0 Raw"
+    / str(file_name + ".txt")
+)
+# Load dataset with space as the separator, handling multiple spaces
+df = pd.read_csv(file_path, delimiter=r"\s+", engine="python")
+
 no_of_sensors = 2
 
-#---------------------------------Combining rows and dropping unnecessary columns--------------------------------------
 
-
+#%% ############################### Combining rows & assign col.names #################################
 # Initialize an empty list to store the combined rows
 combined_rows = []
 no_of_rows_to_combine = no_of_sensors
@@ -49,8 +60,15 @@ print(new_column_names)
 
 combined_df.columns = new_column_names  # Assign new column names
 
+#%% ##################################### Remove NaN values ########################
+# Find and remove rows with NaN values
+combined_df = combined_df.dropna()
+
+#%% ############################################# Removing rows and columns
 # Removing Irrelevant columns
 cleaned_df = combined_df
+
+
 # Define column names to drop
 columns_to_drop = [
     'time_stamp_S1', 'dt_S1', "State_S1",
@@ -62,24 +80,25 @@ cleaned_with_rows_df = cleaned_df
 
 # Removing irrelevant rows
 cleaned_df = cleaned_df.loc[~cleaned_df["State_S2"].isin(["Unknown", "Transition"])]
+
 # Rename the last column
 cleaned_df.rename(columns={cleaned_df.columns[-1]: "Posture"}, inplace=True)
 # Remove the last 4 characters from the "Posture" column - "ss.png" -> "ss"
 cleaned_df["Posture"] = cleaned_df["Posture"].astype(str).str.slice(stop=-4)
 
-
-
 # Print first few rows to check
 print(cleaned_df.head())
 
 
-#----------------------------------------creating the ML ready CSV file------------------------------------------------
+#%%##############################################creating the ML ready CSV file#############################################
 
+#Pure ML
 ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready\\" + file_name
 finaldf=cleaned_df    
 finaldf.to_csv(ML_path, index=False)
 print(f"Combined rows saved to {ML_path}.txt")
 
+#Irrelevant Rows ML
 ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready-with_rows\\" + file_name
 finaldf=cleaned_with_rows_df    
 finaldf.to_csv(ML_path, index=False)

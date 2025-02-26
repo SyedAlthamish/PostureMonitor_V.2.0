@@ -1,5 +1,3 @@
-## the bottom file is now used for analysis of actually acquired posture data's validity - whether if routine takes in 
-## actual data or not.
 
 '''{
     File Description:
@@ -197,40 +195,3 @@ print("Rows with NaN values:")
 print(nan_rows)
 
 # %% ################################# Removing Nan from raw .txt, save it to same repo, create og's copy ##########################
-import pandas as pd
-from pathlib import Path
-import shutil
-
-# Define the file path
-file_path = (
-    Path(r"C:\Althamish\Project")
-    / "PostureMonitor_V.2.0"
-    / "v.2.0"
-    / "data"
-    / "V.3.0"
-    / "v.3.0 Raw"
-    / "_.txt"
-)
-
-# Define backup directory and file
-backup_dir = file_path.parent.parent / "v.3.0 Raw_Backup"
-backup_dir.mkdir(exist_ok=True)  # Create the backup directory if it doesn't exist
-backup_file = backup_dir / file_path.name
-
-# Copy the original file to the backup directory
-shutil.copy(file_path, backup_file)
-
-# Load dataset with space as the separator, handling multiple spaces
-df = pd.read_csv(file_path, delimiter=r"\s+", engine="python")
-
-# Find and remove rows with NaN values
-df_cleaned = df.dropna()
-
-# Save the cleaned dataset back to the original location
-df_cleaned.to_csv(file_path, sep=" ", index=False)
-
-print(f"Backup saved at: {backup_file}")
-print(f"Cleaned file saved at: {file_path}")
-
-
-
