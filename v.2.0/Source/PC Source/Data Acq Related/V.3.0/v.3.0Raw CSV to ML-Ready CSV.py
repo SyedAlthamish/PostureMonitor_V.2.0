@@ -93,13 +93,13 @@ print(cleaned_df.head())
 #%%##############################################creating the ML ready CSV file#############################################
 
 #Pure ML
-ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready\\" + file_name
+ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready\\" + file_name +".csv"
 finaldf=cleaned_df    
 finaldf.to_csv(ML_path, index=False)
 print(f"Combined rows saved to {ML_path}.txt")
 
 #Irrelevant Rows ML
-ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready-with_rows\\" + file_name
+ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready-with_rows\\" + file_name +".csv"
 finaldf=cleaned_with_rows_df    
 finaldf.to_csv(ML_path, index=False)
 print(f"Combined rows saved to {ML_path}.txt")

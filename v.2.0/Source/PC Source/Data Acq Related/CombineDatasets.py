@@ -3,22 +3,26 @@
     }'''
 
 import pandas as pd
+import os
 
-# List of specific CSV files to combine
-file_names = [f"combined_filtered_labeled_output_{i}.csv" for i in range(1, 13)]  # Generates ['1.csv', '2.csv', ..., '12.csv']
-path = 'datasets/'  # Change this to your directory path
+# Specify the folder containing CSV files
+folder_path = r'C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready'  # Change this to your directory path
+
+# Get a list of all CSV files in the specified folder
+file_names = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
 
 # Initialize an empty list to hold the dataframes
 dataframes = []
 
-# Loop through the specified file names and read each one
+# Loop through each CSV file in the folder and read it
 for file_name in file_names:
-    file_path = f"{path}{file_name}"  # Construct full file path
+    file_path = os.path.join(folder_path, file_name)  # Construct full file path
     df = pd.read_csv(file_path)  # Read the CSV file
     dataframes.append(df)  # Append the dataframe to the list
 
 # Concatenate all the dataframes into one
 combined_df = pd.concat(dataframes, ignore_index=True)
 
-# Optionally, save the combined dataframe to a new CSV file
-combined_df.to_csv('NET_combined_filtered_labeled_output.csv', index=False)
+# Save the combined dataframe to the same folder
+output_file_path = os.path.join(folder_path, 'NET_combined_filtered_labeled_output.csv')
+combined_df.to_csv(output_file_path, index=False)

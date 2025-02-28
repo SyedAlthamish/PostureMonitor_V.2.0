@@ -3,3 +3,5 @@ This folder contains the Structured,Labelled, row-cleaned Datasets that are extr
 The format of each .txt file is as follows:
     6* 2 values of one sensor, 6 *2 values of another sensor, posture state (Each Column is also labelled)
     with each row having only relevant posture states.
+
+The actual dataset consists solely of ***n naming convention where the starts represent characters and the n represents optional number.
