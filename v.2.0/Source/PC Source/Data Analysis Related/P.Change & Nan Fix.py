@@ -2,7 +2,7 @@
 '''{
     File Description:
      This file contains cells that each perform specific functions that help analyse & fix performance of Posture_data after a sample acquisition
-     from a patient particularly fix of Nan values and Posture Change for each Posture
+     from a patient particularly fix of Nan values and observance Posture Change for each Posture
     }'''
 #%% ############################################ All Columns Analysis ################################
 
@@ -59,6 +59,7 @@ plt.tight_layout()
 plt.show()
 
 # %%################################ Color graded posture-change recognition of Data #############################
+''' Takes 1.5 minutes to plot, insane'''
 import matplotlib.pyplot as plt
 import pandas as pd
 from pathlib import Path
@@ -72,7 +73,7 @@ file_path = (
     / "data"
     / "V.3.0"
     / "v.3.0 ML-Ready-with_rows"
-    / "syd"
+    / "syd2"
 )
 
 # Load dataset
