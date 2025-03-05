@@ -1,3 +1,9 @@
+'''{
+    File Description: This file contains the algorithm to take Ml-Ready datasets and estimate and display performance in 
+    classification using multiple classifiers and multiple validation schemes including LOVO. SVm,knn,elm,rf,custom_elm are
+    the classifiers used
+    }'''
+
 import os
 import glob
 import numpy as np
