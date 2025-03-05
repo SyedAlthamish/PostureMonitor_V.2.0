@@ -92,14 +92,65 @@ print(cleaned_df.head())
 
 #%%##############################################creating the ML ready CSV file#############################################
 
-#Pure ML
+###Pure ML
 ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready\\" + file_name +".csv"
 finaldf=cleaned_df    
 finaldf.to_csv(ML_path, index=False)
-print(f"Combined rows saved to {ML_path}.txt")
+print(f"Combined rows saved to {ML_path}")
 
-#Irrelevant Rows ML
+###Irrelevant Rows ML
 ML_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready-with_rows\\" + file_name +".csv"
 finaldf=cleaned_with_rows_df    
 finaldf.to_csv(ML_path, index=False)
-print(f"Combined rows saved to {ML_path}.txt")
+print(f"Combined rows saved to {ML_path}")
+
+#%%############################################## 5 Label File Creation and Saving #############################################
+
+import pandas as pd
+
+# Assume 'df' is the main DataFrame containing your data.
+# Also assume that the label column is named 'final'. Adjust if needed.
+df = cleaned_df.copy()  # or use the appropriate DataFrame variable
+label_col = 'Posture'
+
+# --- Process for S_UP & UP -> H_UP ---
+# Filter the rows for each class from the original DataFrame
+s_up_df = df[df[label_col] == 'S_UP']
+up_df = df[df[label_col] == 'UP']
+
+# Sample 50% of each class (use a fixed random_state for reproducibility)
+sample_s_up = s_up_df.sample(frac=0.5, random_state=42)
+sample_up = up_df.sample(frac=0.5, random_state=42)
+
+# Combine the samples and set the new label
+merged_up = pd.concat([sample_s_up, sample_up], ignore_index=True)
+merged_up[label_col] = 'H_UP'
+
+# --- Process for S_LF & LF -> H_LF ---
+# Filter the rows for each class from the original DataFrame
+s_lf_df = df[df[label_col] == 'S_LF']
+lf_df = df[df[label_col] == 'LF']
+
+# Sample 50% of each class
+sample_s_lf = s_lf_df.sample(frac=0.5, random_state=42)
+sample_lf = lf_df.sample(frac=0.5, random_state=42)
+
+# Combine the samples and set the new label
+merged_lf = pd.concat([sample_s_lf, sample_lf], ignore_index=True)
+merged_lf[label_col] = 'H_LF'
+
+# --- Remove the original rows for the merged classes ---
+# Keep only rows that are not in the original S_UP, UP, S_LF, LF groups
+df_remaining = df[~df[label_col].isin(['S_UP', 'UP', 'S_LF', 'LF'])]
+
+# --- Append the new merged rows ---
+final_df = pd.concat([df_remaining, merged_up, merged_lf], ignore_index=True)
+
+# Optional: Check the unique classes to verify that there are only 5
+print("Unique classes in final DataFrame:", final_df[label_col].unique())
+
+# Save the final DataFrame to CSV (adjust the path as needed)
+output_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready 5Lab\\" + file_name +".csv"
+final_df.to_csv(output_path, index=False)
+print(f"Final DataFrame with 5 classes saved to {output_path}")
+
