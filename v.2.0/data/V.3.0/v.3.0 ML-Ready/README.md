@@ -5,3 +5,5 @@ The format of each .txt file is as follows:
     with each row having only relevant posture states.
 
 The actual dataset consists solely of ***n naming convention where the starts represent characters and the n represents optional number.
+
+*Special Note: phar has corrupted data for s1 data due to powering down and up in between the protocol*
