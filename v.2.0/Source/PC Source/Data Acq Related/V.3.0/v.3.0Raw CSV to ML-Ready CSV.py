@@ -144,13 +144,20 @@ merged_lf[label_col] = 'H_LF'
 df_remaining = df[~df[label_col].isin(['S_UP', 'UP', 'S_LF', 'LF'])]
 
 # --- Append the new merged rows ---
-final_df = pd.concat([df_remaining, merged_up, merged_lf], ignore_index=True)
+df_5Lab = pd.concat([df_remaining, merged_up, merged_lf], ignore_index=True)
 
 # Optional: Check the unique classes to verify that there are only 5
-print("Unique classes in final DataFrame:", final_df[label_col].unique())
+print("Unique classes in final DataFrame:", df_5Lab[label_col].unique())
 
 # Save the final DataFrame to CSV (adjust the path as needed)
 output_path = r"C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready 5Lab\\" + file_name +".csv"
-final_df.to_csv(output_path, index=False)
+df_5Lab.to_csv(output_path, index=False)
 print(f"Final DataFrame with 5 classes saved to {output_path}")
 
+
+'''{
+    
+    do not forget to run the normalization code for additional data, after all 
+    patient's data has been collected
+    
+    }'''

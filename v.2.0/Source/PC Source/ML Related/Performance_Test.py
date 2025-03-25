@@ -222,7 +222,7 @@ def normal_split_validation(patient_data, test_size=0.25, random_state=42):
     y_pred_hpelm = label_encoder_h.inverse_transform(y_pred_hpelm)
     acc_hpelm = accuracy_score(y_test, y_pred_hpelm)
     
-    print("\n--- Average Accuracies (Normal Split) ---")
+    print(f"\n--- TestSize:{test_size}; Average Accuracies (Normal Split) ---")
     print(f"SVM: {acc_svm:.4f}")
     print(f"Random Forest: {acc_rf:.4f}")
     print(f"kNN: {acc_knn:.4f}")
@@ -233,7 +233,7 @@ def normal_split_validation(patient_data, test_size=0.25, random_state=42):
 # Example usage
 # -----------------------
 if __name__ == '__main__':
-    folder_path = r'C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\Trash'  # Update this path to your CSV folder
+    folder_path = r'C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready\Normalized'  # Update this path to your CSV folder
     # Load patient data from CSV files
     patient_data = load_patient_data(folder_path)
     
@@ -248,3 +248,5 @@ if __name__ == '__main__':
     
     # Run normal train-test split validation on the consolidated dataset
     normal_split_validation(patient_data, test_size=0.25)
+    normal_split_validation(patient_data, test_size=0.5)
+    normal_split_validation(patient_data, test_size=0.75)
