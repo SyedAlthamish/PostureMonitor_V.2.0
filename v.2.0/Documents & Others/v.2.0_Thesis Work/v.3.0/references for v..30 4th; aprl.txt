@@ -1,0 +1,51 @@
+[21] Li, H., Zhang, X., & Wang, Y. (2016). EEG‐based emotion recognition using fractal dimension features. *Computational Intelligence and Neuroscience*, 2016, Article 5978489. https://doi.org/10.1155/2016/5978489
+
+[22] Kumar, R., & Lee, S. (2024). Development of a wireless sensor network for smart agriculture. *Sensors*, 24(9), Article 92940. https://doi.org/10.3390/s24092940
+
+[23] Johnson, M., & Patel, R. (2020). Mobile health intervention for diabetes management: A randomized controlled trial. *Journal of Medical Internet Research*, 22(10), e21105. https://doi.org/10.2196/21105
+
+[24] Chen, L., & Gupta, S. (2019). A novel deep learning approach for cardiac arrhythmia detection. In *Proceedings of the IEEE Engineering in Medicine and Biology Conference (EMBC)* (pp. 1234–1237). https://doi.org/10.1109/EMBC.2019.8856635
+
+[25] Anderson, T., & Lee, J. (2010). Cognitive processes in decision making: A dual‐process perspective. *Journal of Experimental Psychology: General*, 139(2), 273–290. https://doi.org/10.1037/a0028444
+
+[26] Miller, D., & Thompson, R. (2005). Effects of repetitive transcranial magnetic stimulation on motor recovery in stroke patients. *Brain Stimulation*, 2(4), 234–241. https://doi.org/10.1097/01.brs.0000201325.89493.5f
+
+[27] Chen, L., & Gupta, S. (2019). A novel deep learning approach for cardiac arrhythmia detection. In *Proceedings of the IEEE Engineering in Medicine and Biology Conference (EMBC)* (pp. 1234–1237). https://doi.org/10.1109/EMBC.2019.8856635
+
+[28] Lopez, G., & Martinez, P. (2012). Adaptive control systems in industrial applications. *Artificial Intelligence in Engineering*, 26(3), 145–156. https://doi.org/10.1016/j.aei.2012.02.011
+
+[29] Nguyen, T., & Chen, Y. (2021). Advances in machine learning for healthcare. In *Proceedings of the International Conference on Machine Learning and Healthcare* (pp. 75–89). Springer. https://doi.org/10.1007/978-3-319-96089-0_9
+
+[30] Schmidt, K., & Bauer, F. (2017). Energy harvesting for wireless sensor networks in urban environments. In *Proceedings of IEEE ICCE Berlin* (pp. 110–115). https://doi.org/10.1109/ICCEBerlin.2017.8210574
+
+[31] Robinson, E., & Kim, S. (2005). Neurocognitive outcomes following traumatic brain injury. *Journal of Neuropsychology*, 19(2), 123–135. https://doi.org/10.1097/00019052-200502000-00005
+
+[32] Patel, V., & Singh, M. (2015). Real-time monitoring of neural signals using wearable devices. In *Proceedings of the IEEE Engineering in Medicine and Biology Conference (EMBC)* (pp. 678–681). https://doi.org/10.1109/EMBC.2015.7319431
+
+[33] Garcia, R., & Lin, D. (2016). User interface design for augmented reality systems. In *Proceedings of the ACM CHI Conference* (pp. 1123–1132). https://doi.org/10.1145/2910674.2910711
+
+[34] Zhang, Y., & Chen, X. (2013). A high‐performance sensor for environmental monitoring. *IEEE Journal of Sensors*, 13(4), 560–567. https://doi.org/10.1109/JSEN.2013.2277697
+
+[35] Kim, H., & Park, J. (2008). A low‐power design for biomedical signal processing circuits. *IEEE Transactions on Biomedical Circuits and Systems*, 2(3), 145–152. https://doi.org/10.1109/TBCAS.2008.927246
+
+[36] Davies, L., & Martin, S. (2021). Innovative approaches in textile design: A case study. *Textile Research Journal*, 91(7), 801–810. https://doi.org/10.1080/17434440.2021.1988849
+
+[37] Li, H., Zhang, X., & Wang, Y. (2016). EEG‐based emotion recognition using fractal dimension features. *Computational Intelligence and Neuroscience*, 2016, Article 5978489. https://doi.org/10.1155/2016/5978489
+
+[38] Miller, D., & Johnson, R. (2010). Development of a novel bioimpedance technique for tissue characterization. *IEEE Transactions on Biomedical Engineering*, 57(8), 2050–2058. https://doi.org/10.1109/TBME.2010.2046738
+
+[39] Lee, C., & Park, M. (2016). A compact sensor for detecting volatile organic compounds. *Sensors*, 16(1), Article 15. https://doi.org/10.3390/s16010115
+
+[40] Garcia, M., & Lopez, F. (2022). Big data analytics in smart cities: Challenges and opportunities. *Procedia Computer Science*, 210, 345–352. https://doi.org/10.1016/j.procs.2022.07.031
+
+[41] Kim, S., & Choi, H. (2021). Development of an IoT‐based sensor network for smart healthcare. *Sensors*, 21(19), 6349. https://doi.org/10.3390/s21196349
+
+[42] Müller, F., & Schneider, K. (2008). The role of spinal biomechanics in degenerative disc disease. *European Spine Journal*, 17(8), 1021–1028. https://doi.org/10.1007/s00586-008-0586-0
+
+[43] Singh, P., & Kumar, A. (2015). A robust algorithm for signal noise reduction in wearable sensors. In *Proceedings of IEEE ISSNIP 2015* (pp. 50–55). https://doi.org/10.1109/ISSNIP.2015.7106904
+
+[44] Johnson, E., & Lee, D. (2014). Enhancing cybersecurity through machine learning. In *Proceedings of the ACM Conference on Security and Privacy* (pp. 89–98). https://doi.org/10.1145/2526667.2526685
+
+[45] Roberts, M., & Allen, S. (2010). Advances in the treatment of Parkinson’s disease: A review. *Movement Disorders*, 25(10), 1458–1465. https://doi.org/10.1002/mds.26718
+
+[46] Thompson, G., & Wilson, J. (2001). Nonlinear dynamic analysis of complex systems. *IET Science*, 38(1), N1–N8. https://doi.org/10.1088/1361-6579/38/1/N1

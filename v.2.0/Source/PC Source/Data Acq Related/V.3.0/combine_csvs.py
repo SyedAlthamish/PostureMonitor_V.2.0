@@ -7,7 +7,7 @@ import glob
 import os
 
 # Define the path to the folder containing the CSV files
-folder_path = r'C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\V.3.0\v.3.0 ML-Ready'
+folder_path = r'C:\Althamish\Project\PostureMonitor_V.2.0\v.2.0\data\Trash\_'
 
 # Create a list of all CSV file paths in the folder
 csv_files = glob.glob(os.path.join(folder_path, "*.csv"))
